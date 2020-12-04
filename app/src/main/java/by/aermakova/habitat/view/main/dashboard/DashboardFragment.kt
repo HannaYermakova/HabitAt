@@ -19,20 +19,22 @@ import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 
-class DashboardFragment : BaseFragment() {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
     private lateinit var mBinding: FragmentDashboardBinding
     private lateinit var mView: View
     private lateinit var mViewModel: DashboardViewModel
     private var mHabitDataAdapter: HabitDataMultiAdapter? = null
     private var mCategoryAdapter: CategoryAdapter? = null
 
+    override val layoutId: Int
+        get() = R.layout.fragment_dashboard
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+/*    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
         mView = mBinding.root
         hideKeyboard()
         return mView
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
