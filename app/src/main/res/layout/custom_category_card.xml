@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="by.aermakova.habitat.model.db.entity.Category" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="5dp"
+        card_view:cardElevation="0dp">
+
+        <LinearLayout
+            android:id="@+id/card_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_category_card_4"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/card_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_nova_bold"
+                android:text="@{@string/tag_category(category.title)}"
+                android:textColor="@color/color_category_card_text_4"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/habit_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_nova_font"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="by.aermakova.habitat.model.db.entity.Category" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        tools:ignore="RtlSymmetry">
+
+        <ToggleButton
+            android:id="@+id/category_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_toggle_pill"
+            android:fontFamily="@font/proxima_nova_font"
+            android:text="@{@string/space + @string/tag_category(category.title) + @string/space}"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/color_category_card_text_4"
+            android:textOff="@{@string/space + @string/tag_category(category.title) + @string/space}"
+            android:textOn="@{@string/space + @string/tag_category(category.title) + @string/space}"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</layout>

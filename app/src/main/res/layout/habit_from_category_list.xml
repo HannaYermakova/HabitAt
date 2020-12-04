@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="habitItem"
+            type="by.aermakova.habitat.model.db.entity.Habit" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="none"
+                android:fontFamily="@font/proxima_nova_font"
+                android:paddingBottom="5dp"
+                android:text="@{habitItem.title}"
+                android:textColor="@color/colorPrimaryDark"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/week_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="13sp"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="none"
+                android:fontFamily="@font/proxima_nova_font"
+                android:textColor="@color/colorUsual"
+                tools:targetApi="o" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

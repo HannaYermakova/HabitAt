@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">HABITat</string>
+    <string name="title_calendar">Календарь</string>
+    <string name="title_dashboard">Дашборд</string>
+    <string name="title_statistic">Статистика</string>
+    <string name="title_profile">Профиль</string>
+    <string name="onboarding_title_1">Становись лучше 1</string>
+    <string name="onboading_title_2">Становись лучше 2</string>
+    <string name="onboading_title_3">Становись лучше 3</string>
+    <string name="introduce">Добро пожаловать \n в HABITat!</string>
+    <string name="enter_your_name">Введите ваше имя</string>
+    <string name="enter_habit_title">Введите название</string>
+    <string name="motivation_text_1">Сформируй все виды постоянных\nпривычек и чувствуй себя\nмотивированным, когда следуешь\nпривычкам каждый день</string>
+    <string name="continue_txt">Далее</string>
+    <string name="cancel_txt">Пропустить</string>
+    <string name="start_txt">Начать</string>
+    <string name="create_txt">Создать</string>
+    <string name="hello_user">"Привет, "%1$s"!"</string>
+    <string name="percent_sign">""%1$s"%%"</string>
+    <string name="habit_day">""%1$s" дней"</string>
+    <string name="category">Категория</string>
+    <string name="categories">Категории</string>
+    <string name="add_your_first_habit">Добавьте свою\nпервую привычку</string>
+    <string name="new_category">Новая категория</string>
+    <string name="new_category_color">Цвет</string>
+    <string name="new_habit">Новая привычка</string>
+    <string name="new_habit_title">Название</string>
+    <string name="new_habit_duration">Продолжительность (дни)</string>
+    <string name="new_habit_timetable">Расписание</string>
+    <string name="new_habit_remind">Напоминать мне о привычке</string>
+    <string name="new_habit_remind_time">10:00</string>
+    <string name="empty" />
+    <string name="space">\u0020\u0020</string>
+    <string name="tag_category">"#"%1$s""</string>
+    <string name="error_empty_name">Для продолжения введите имя или ник</string>
+    <string name="error_empty_fields">Заполните необходимые поля</string>
+    <string name="error_db">При сохранении произошла ошибка</string>
+    <string name="change_time">Изменить время</string>
+    <string name="spinner_every_day">Каждый день</string>
+    <string name="spinner_select_manually">Выбрать вручную</string>
+    <string name="create_first_category">\u0020\u0020создать первую категорию\u0020\u0020</string>
+
+    <string name="nominative_days">день</string>
+    <string name="genitive_days">дней</string>
+    <string name="accusative_days">дня</string>
+
+    <string name="nominative_habits">привычка</string>
+    <string name="genitive_habits">привычек</string>
+    <string name="accusative_habits">привычки</string>
+    <string name="notification_text">скоро войдёт в привычку!</string>
+    <string name="notification_channel">Напоминание о привычке</string>
+</resources>

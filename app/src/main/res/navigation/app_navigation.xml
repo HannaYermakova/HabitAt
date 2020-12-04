@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/welcomeFlowFragment">
+
+    <fragment
+        android:id="@+id/mainFlowFragment"
+        android:name="by.aermakova.habitat.view.main.flow.MainFlowFragment"
+        android:label="MainFlowFragment">
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addNewHabitFragment"
+            app:destination="@id/addNewHabitFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addNewCategoryFragment"
+            app:destination="@id/addNewCategoryFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_categoryItemFragment"
+            app:destination="@id/categoryItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFlowFragment"
+        android:name="by.aermakova.habitat.view.onboarding.OnboardingFlowFragment"
+        android:label="WelcomeFlowFragment">
+        <action
+            android:id="@+id/action_welcomeFlowFragment_to_mainFlowFragment"
+            app:destination="@id/mainFlowFragment"
+            app:popUpTo="@id/welcomeFlowFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addNewHabitFragment"
+        android:name="by.aermakova.habitat.view.main.habit.AddNewHabitFragment"
+        android:label="AddNewHabitFragment" >
+        <action
+            android:id="@+id/action_addNewHabitFragment_to_addNewCategoryFragment"
+            app:destination="@id/addNewCategoryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addNewCategoryFragment"
+        android:name="by.aermakova.habitat.view.main.category.addNew.AddNewCategoryFragment"
+        android:label="AddNewCategoryFragment" />
+    <fragment
+        android:id="@+id/categoryItemFragment"
+        android:name="by.aermakova.habitat.view.main.category.detail.CategoryItemFragment"
+        android:label="CategoryItemFragment">
+
+        <action
+            android:id="@+id/action_categoryItemFragment_to_addNewHabitFragment"
+            app:destination="@id/addNewHabitFragment" />
+    </fragment>
+
+</navigation>

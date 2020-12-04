@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPink">#F7D6D6</color>
+    <color name="colorPinkStatusBar">#FFEFEF</color>
+    <color name="colorPrimary">#FF7983</color>
+    <color name="colorPrimaryDark">#171059</color>
+    <color name="colorPrimaryLight">#7E3C3863</color>
+    <color name="colorAccent">#FF7983</color>
+    <color name="colorUsual">#8B88AC</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_background">#E5E5E5</color>
+    <color name="color_pink">#FF7983</color>
+    <color name="color_blue">#171059</color>
+    <color name="color_transparent">#80000000</color>
+    <color name="color_grey_light">#E4E2F4</color>
+
+
+    <color name="color_category_card_0">#FFDFDF</color>
+    <color name="color_category_card_1">#FFF7EB</color>
+    <color name="color_category_card_2">#E9FFDC</color>
+    <color name="color_category_card_3">#E2F4E6</color>
+    <color name="color_category_card_4">#DCF8FF</color>
+    <color name="color_category_card_5">#DCEEFF</color>
+    <color name="color_category_card_6">#E4E2F4</color>
+
+    <color name="color_category_card_text_0">#FF7983</color>
+    <color name="color_category_card_text_1">#FFB83B</color>
+    <color name="color_category_card_text_2">#6FA94C</color>
+    <color name="color_category_card_text_3">#61996D</color>
+    <color name="color_category_card_text_4">#62CDFB</color>
+    <color name="color_category_card_text_5">#629FFB</color>
+    <color name="color_category_card_text_6">#171059</color>
+
+    <color name="colorOverlay">#78ffffff</color>
+</resources>

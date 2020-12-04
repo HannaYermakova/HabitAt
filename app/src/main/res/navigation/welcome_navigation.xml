@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/welcome_navigation"
+    app:startDestination="@id/welcomeFirstFragment">
+
+    <fragment
+        android:id="@+id/welcomeFirstFragment"
+        android:name="by.aermakova.habitat.view.onboarding.OnboardingFirstFragment"
+        android:label="WelcomeFirstFragment">
+        <action
+            android:id="@+id/action_welcomeFirstFragment_to_welcomeSecondFragment"
+            app:destination="@id/welcomeSecondFragment" />
+        <action
+            android:id="@+id/action_welcomeFirstFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeSecondFragment"
+        android:name="by.aermakova.habitat.view.onboarding.OnboardingSecondFragment"
+        android:label="WelcomeSecondFragment">
+        <action
+            android:id="@+id/action_welcomeSecondFragment_to_welcomeThirdFragment"
+            app:destination="@id/welcomeThirdFragment" />
+        <action
+            android:id="@+id/action_welcomeSecondFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeThirdFragment"
+        android:name="by.aermakova.habitat.view.onboarding.OnboardingThirdFragment"
+        android:label="WelcomeThirdFragment" >
+        <action
+            android:id="@+id/action_welcomeThirdFragment_to_registrationFlowFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="by.aermakova.habitat.view.onboarding.signup.SignUpFragment"
+        android:label="RegistrationFlowFragment">
+    </fragment>
+</navigation>

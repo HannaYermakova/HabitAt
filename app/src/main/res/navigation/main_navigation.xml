@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="by.aermakova.habitat.view.main.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="by.aermakova.habitat.view.main.calendar.CalendarFragment"
+        android:label="@string/title_calendar"
+        tools:layout="@layout/fragment_category_item" />
+
+    <fragment
+        android:id="@+id/navigation_statistic"
+        android:name="by.aermakova.habitat.view.main.statistic.StatisticFragment"
+        android:label="@string/title_statistic"
+        tools:layout="@layout/fragment_statistic" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="by.aermakova.habitat.view.main.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="habitItem"
+            type="by.aermakova.habitat.model.db.entity.Habit" />
+
+        <variable
+            name="habitLogic"
+            type="by.aermakova.habitat.model.useCase.HabitLogic" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_background_1"
+                android:contentDescription="TODO" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+
+                android:autoSizeMaxTextSize="25sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_bold"
+                android:text="@{habitLogic.allDaysText}"
+                android:textColor="@color/colorPrimaryDark"
+                tools:targetApi="o" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_above="@id/habit_progress"
+                android:layout_marginBottom="10dp"
+                android:autoSizeMaxTextSize="22sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_font"
+                android:text="@{habitItem.title}"
+                android:textColor="@color/colorPrimaryDark"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/habit_progress"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+
+                android:autoSizeMaxTextSize="25sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_font"
+                android:text="@{habitLogic.progressText}"
+                android:textColor="@color/colorAccent"
+                tools:targetApi="o" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

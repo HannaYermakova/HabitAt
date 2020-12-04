@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="habitItem"
+            type="by.aermakova.habitat.model.db.entity.Habit" />
+
+        <variable
+            name="habitLogic"
+            type="by.aermakova.habitat.model.useCase.HabitLogic" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_background_1"
+                android:contentDescription="TODO" />
+
+            <TextView
+                tools:text="34 дня"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_margin="15dp"
+                android:autoSizeMaxTextSize="25sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_bold"
+                android:text="@{habitLogic.allDaysText}"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.03"
+                tools:targetApi="o" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_margin="15dp"
+                android:autoSizeMaxTextSize="22sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_font"
+                android:text="@{habitItem.title}"
+                tools:text="привычка"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toTopOf="@+id/habit_table"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/habit_table"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_margin="15dp"
+                android:autoSizeMaxTextSize="25sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/proxima_nova_font"
+                android:text="@{habitLogic.weekDaysText}"
+                tools:text="Пн, Вт, Ср"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.95"
+                tools:targetApi="o" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
