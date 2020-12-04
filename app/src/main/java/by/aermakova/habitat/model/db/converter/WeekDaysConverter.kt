@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-object dxxWeekDaysConverter {
+object WeekDaysConverter {
     private val gson = Gson()
 
     @kotlin.jvm.JvmStatic
