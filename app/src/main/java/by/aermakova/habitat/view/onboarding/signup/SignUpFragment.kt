@@ -1,12 +1,8 @@
 package by.aermakova.habitat.view.onboarding.signup
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.FragmentSignUpBinding
