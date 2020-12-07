@@ -18,16 +18,19 @@ import by.aermakova.habitat.view.base.BaseFragment
 import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 
-class CategoryItemFragment : BaseFragment() {
+class CategoryItemFragment : BaseFragment<FragmentCategoryItemBinding>() {
     private lateinit var mBinding: FragmentCategoryItemBinding
     private lateinit var mViewModel: CategoryItemViewModel
     private var mCategory: Category? = null
     private var mHabitAdapter: HabitListAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override val layoutId: Int
+        get() = R.layout.fragment_category_item
+
+/*    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category_item, container, false)
         return mBinding.root
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

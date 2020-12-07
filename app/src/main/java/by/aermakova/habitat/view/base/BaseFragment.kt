@@ -1,15 +1,31 @@
 package by.aermakova.habitat.view.base
 
 import android.app.Activity
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.viewbinding.ViewBinding
 import by.aermakova.habitat.R
+import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryViewModel
 import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB: ViewDataBinding> : Fragment() {
+
+    abstract val layoutId: Int
+    protected lateinit var binding: VB
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        return binding.root
+    }
+
 
     protected fun hideKeyboard() {
         val activity: Activity = requireActivity()

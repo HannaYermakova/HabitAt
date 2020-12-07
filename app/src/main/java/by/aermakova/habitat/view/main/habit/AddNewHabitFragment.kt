@@ -32,13 +32,16 @@ import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
 import java.util.*
 
-class AddNewHabitFragment : BaseFragment(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
+class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding>(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
     private lateinit var mBinding: FragmentAddNewHabitBinding
     private lateinit var mViewModel: AddNewHabitViewModel
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
     private lateinit var mWeekDayAdapter: WeekDayAdapter
     private var mHours = 10
     private var mMinutes = 0
+
+    override val layoutId: Int
+        get() = R.layout.fragment_add_new_habit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_new_habit, container, false)

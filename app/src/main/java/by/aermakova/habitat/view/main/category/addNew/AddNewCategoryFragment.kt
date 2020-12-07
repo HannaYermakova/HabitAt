@@ -14,16 +14,19 @@ import by.aermakova.habitat.view.custom.dataadapter.CardColorAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import by.aermakova.habitat.view.observer.ColorObserver
 
-class AddNewCategoryFragment : BaseFragment(), ColorObserver {
+class AddNewCategoryFragment : BaseFragment<FragmentAddNewCategoryBinding>(), ColorObserver {
     private lateinit var mBinding: FragmentAddNewCategoryBinding
     private lateinit var mViewModel: AddNewCategoryViewModel
     private lateinit var colorAdapter: CardColorAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override val layoutId: Int
+        get() = R.layout.fragment_add_new_category
+
+/*    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_new_category, container, false)
         mViewModel = AddNewCategoryViewModel()
         return mBinding.root
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
