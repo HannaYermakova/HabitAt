@@ -25,10 +25,10 @@ abstract class BaseFragment<VB: ViewDataBinding> : Fragment() {
     }
 
     protected fun hideKeyboard() {
-        val activity: Activity = requireActivity()
-        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val activity = requireActivity()
+        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity.currentFocus?:View(activity)
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     protected fun showToastMessage(message: Int) {
