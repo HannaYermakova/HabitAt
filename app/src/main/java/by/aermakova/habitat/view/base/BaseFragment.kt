@@ -11,9 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.viewbinding.ViewBinding
 import by.aermakova.habitat.R
-import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryViewModel
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<VB: ViewDataBinding> : Fragment() {
@@ -26,14 +24,10 @@ abstract class BaseFragment<VB: ViewDataBinding> : Fragment() {
         return binding.root
     }
 
-
     protected fun hideKeyboard() {
         val activity: Activity = requireActivity()
         val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = activity.currentFocus
-        if (view == null) {
-            view = View(activity)
-        }
+        val view = activity.currentFocus?:View(activity)
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
