@@ -18,7 +18,7 @@ import by.aermakova.habitat.view.base.BaseFragment
 import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 
-class CategoryItemFragment : BaseFragment<FragmentCategoryItemBinding>() {
+class CategoryItemFragment : BaseFragment<FragmentCategoryItemBinding, CategoryItemViewModel>() {
     private lateinit var mBinding: FragmentCategoryItemBinding
     private lateinit var mViewModel: CategoryItemViewModel
     private var mCategory: Category? = null

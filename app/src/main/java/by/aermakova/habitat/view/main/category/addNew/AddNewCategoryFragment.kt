@@ -14,7 +14,7 @@ import by.aermakova.habitat.view.custom.dataadapter.CardColorAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import by.aermakova.habitat.view.observer.ColorObserver
 
-class AddNewCategoryFragment : BaseFragment<FragmentAddNewCategoryBinding>(), ColorObserver {
+class AddNewCategoryFragment : BaseFragment<FragmentAddNewCategoryBinding, AddNewCategoryViewModel>(), ColorObserver {
     private lateinit var mBinding: FragmentAddNewCategoryBinding
     private lateinit var mViewModel: AddNewCategoryViewModel
     private lateinit var colorAdapter: CardColorAdapter

@@ -10,14 +10,16 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
 import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseFragment<VB: ViewDataBinding> : Fragment() {
+abstract class BaseFragment<VB: ViewDataBinding, VM: ViewModel> : Fragment() {
 
     abstract val layoutId: Int
     protected lateinit var binding: VB
+    protected lateinit var viewModel: VM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)

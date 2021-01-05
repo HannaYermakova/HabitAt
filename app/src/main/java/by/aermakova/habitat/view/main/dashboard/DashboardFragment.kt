@@ -19,7 +19,7 @@ import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 
-class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
     private lateinit var mBinding: FragmentDashboardBinding
     private lateinit var mView: View
     private lateinit var mViewModel: DashboardViewModel

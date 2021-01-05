@@ -9,7 +9,7 @@ import by.aermakova.habitat.databinding.FragmentSignUpBinding
 import by.aermakova.habitat.model.Preferences
 import by.aermakova.habitat.view.base.BaseFragment
 
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
+class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel>() {
     private lateinit var mBinding: FragmentSignUpBinding
 
     private lateinit var mViewModel: SignUpViewModel

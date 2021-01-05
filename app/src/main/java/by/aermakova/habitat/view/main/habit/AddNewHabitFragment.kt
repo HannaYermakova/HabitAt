@@ -32,7 +32,7 @@ import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
 import java.util.*
 
-class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding>(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
+class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
     private lateinit var mBinding: FragmentAddNewHabitBinding
     private lateinit var mViewModel: AddNewHabitViewModel
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
