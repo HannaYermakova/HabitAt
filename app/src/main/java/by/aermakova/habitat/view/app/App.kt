@@ -1,27 +1,30 @@
 package by.aermakova.habitat.view.app
 
 import android.app.Application
-import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.di.DataBaseModule
-import by.aermakova.habitat.model.di.DataBaseModule.ContextModule
-import dagger.Component
-import javax.inject.Singleton
+import by.aermakova.habitat.model.di.component.ApplicationComponent
+import by.aermakova.habitat.model.di.component.DaggerApplicationComponent
+import by.aermakova.habitat.model.di.module.ActivityModule
+import by.aermakova.habitat.model.di.module.ApplicationModule
 
 class App : Application() {
 
-    @Singleton
-    @Component(modules = [DataBaseModule::class, ContextModule::class])
-    interface AppComponent {
-        val dataBase: AppDataBase
-    }
+    private lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerApp_AppComponent.builder().contextModule(ContextModule(applicationContext)).build()
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(ApplicationModule(this))
+                .build()
+
+        applicationComponent.activityComponent.inject(this)
+
     }
 
-    companion object {
-        var component: AppComponent? = null
-            private set
+    fun tryInjectAppActivity(appActivity: AppActivity): Boolean {
+        return applicationComponent
+                .getActivityComponent(ActivityModule(appActivity))
+                .activityInjector
+                .maybeInject(appActivity)
     }
 }

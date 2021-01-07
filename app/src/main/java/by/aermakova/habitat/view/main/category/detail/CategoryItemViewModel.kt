@@ -5,9 +5,13 @@ import androidx.lifecycle.ViewModel
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.view.app.App
+import javax.inject.Inject
 
-class CategoryItemViewModel(private val categoryId: Long) : ViewModel() {
-    private val mDataBase: AppDataBase = App.component!!.dataBase
+class CategoryItemViewModel @Inject constructor(
+        private val dataBase: AppDataBase
+) : ViewModel() {
+
+    private val categoryId: Long = 0
     val habitsList: LiveData<List<Habit?>?>?
-        get() = mDataBase.habitDao().getHabitsByCategoryId(categoryId)
+        get() = dataBase.habitDao().getHabitsByCategoryId(categoryId)
 }

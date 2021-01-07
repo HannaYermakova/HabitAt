@@ -2,18 +2,14 @@ package by.aermakova.habitat.view.main.habit
 
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import android.widget.TimePicker
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.FragmentAddNewHabitBinding
@@ -33,8 +29,7 @@ import com.warkiz.widget.SeekParams
 import java.util.*
 
 class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
-    private lateinit var mBinding: FragmentAddNewHabitBinding
-    private lateinit var mViewModel: AddNewHabitViewModel
+
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
     private lateinit var mWeekDayAdapter: WeekDayAdapter
     private var mHours = 10
@@ -43,26 +38,21 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
     override val layoutId: Int
         get() = R.layout.fragment_add_new_habit
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_new_habit, container, false)
-        mViewModel = ViewModelProvider(this).get(AddNewHabitViewModel::class.java)
-        return mBinding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel.setTime(mHours, mMinutes)
-        mBinding.viewModel = mViewModel
+        viewModel.setTime(mHours, mMinutes)
+        binding.viewModel = viewModel
         createCategoryRecycler()
         createWeekDaysRecycler()
-        mBinding.back.setOnClickListener { backNavigation() }
-        subscribeToNavigationChanged(mViewModel)
+        binding.back.setOnClickListener { backNavigation() }
+        subscribeToNavigationChanged(viewModel)
         createSpinner()
-        mBinding.setNotification.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            if (isChecked) mBinding.setTime.visibility = View.VISIBLE else mBinding.setTime.visibility = View.GONE
-            mViewModel.setNotificationEnable(isChecked)
+        binding.setNotification.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (isChecked) binding.setTime.visibility = View.VISIBLE else binding.setTime.visibility = View.GONE
+            viewModel.setNotificationEnable(isChecked)
         }
-        mBinding.showTimePickerButton.setOnClickListener {
+        binding.showTimePickerButton.setOnClickListener {
             val timePicker: DialogFragment = TimePickerFragment(mHours, mMinutes)
             timePicker.show(childFragmentManager, TIME_PICKER_TAG)
         }
@@ -70,28 +60,28 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
     }
 
     private fun setSeekBarSettings() {
-        mBinding.seekBarDuration.onSeekChangeListener = object : OnSeekChangeListener {
+        binding.seekBarDuration.onSeekChangeListener = object : OnSeekChangeListener {
             override fun onSeeking(seekParams: SeekParams) {}
             override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
             override fun onStopTrackingTouch(seekBar: IndicatorSeekBar) {
-                mViewModel.setDaysCount(seekBar.progress)
+                viewModel.setDaysCount(seekBar.progress)
             }
         }
     }
 
     private fun createCategoryRecycler() {
-        mBinding.categoryRecycler.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRecycler.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mCategoriesAdapter = CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
         mCategoriesAdapter.registerObserver(this)
-        mBinding.categoryRecycler.adapter = mCategoriesAdapter
+        binding.categoryRecycler.adapter = mCategoriesAdapter
         setCategories()
     }
 
     private fun createWeekDaysRecycler() {
-        mBinding.weekDaysRecycler.layoutManager = SpanningLinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.weekDaysRecycler.layoutManager = SpanningLinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mWeekDayAdapter = WeekDayAdapter()
         mWeekDayAdapter.registerObserver(this)
-        mBinding.weekDaysRecycler.adapter = mWeekDayAdapter
+        binding.weekDaysRecycler.adapter = mWeekDayAdapter
     }
 
     private fun createSpinner() {
@@ -101,7 +91,7 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
 
         val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.schedule_spinner_row, R.id.variant, variants)
         spinnerAdapter.setDropDownViewResource(R.layout.schedule_spinner_item)
-        with(mBinding.scheduleSpinner) {
+        with(binding.scheduleSpinner) {
             adapter = spinnerAdapter
             onItemSelectedListener = select()
         }
@@ -111,11 +101,11 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
         return object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position == 0) {
-                    mBinding.weekDaysRecycler.visibility = View.GONE
-                    mViewModel.setEveryDay()
+                    binding.weekDaysRecycler.visibility = View.GONE
+                    viewModel.setEveryDay()
                 } else {
-                    mBinding.weekDaysRecycler.visibility = View.VISIBLE
-                    mViewModel.setSelectedWeekDays()
+                    binding.weekDaysRecycler.visibility = View.VISIBLE
+                    viewModel.setSelectedWeekDays()
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -129,7 +119,7 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
     }
 
     private fun createNotificationLogic(habit: Habit?) {
-        if (mBinding.setNotification.isChecked) {
+        if (binding.setNotification.isChecked) {
             AlarmManagerLogic(requireContext().applicationContext, habit)
         }
     }
@@ -142,7 +132,7 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
                 categoryList.add(category)
                 mCategoriesAdapter.setCategories(categoryList)
             }
-        } else mViewModel.allCategories?.observe(viewLifecycleOwner, Observer { mCategoriesAdapter.setCategories(it) })
+        } else viewModel.allCategories?.observe(viewLifecycleOwner, Observer { mCategoriesAdapter.setCategories(it) })
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
@@ -150,16 +140,16 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
         mMinutes = minute
         var time = "$hourOfDay:$minute"
         if (minute == 0) time += "0"
-        mBinding.timeText.text = time
-        mViewModel.setTime(hourOfDay, minute)
+        binding.timeText.text = time
+        viewModel.setTime(hourOfDay, minute)
     }
 
     override fun updateCategory(categoryId: Long) {
-        mViewModel.setCategoryId(categoryId)
+        viewModel.setCategoryId(categoryId)
     }
 
     override fun updateWeekDays(days: BooleanArray?) {
-        mViewModel.setWeekDays(days!!)
+        viewModel.setWeekDays(days!!)
     }
 
     override fun onDestroy() {

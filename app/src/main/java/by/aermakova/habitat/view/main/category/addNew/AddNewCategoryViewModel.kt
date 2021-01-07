@@ -6,15 +6,17 @@ import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.util.SingleLiveEvent
-import by.aermakova.habitat.view.app.App
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class AddNewCategoryViewModel : ViewModel() {
-    private val dataBase: AppDataBase = App.component!!.dataBase
+class AddNewCategoryViewModel @Inject constructor(
+        private val dataBase: AppDataBase
+) : ViewModel() {
+
 
     @kotlin.jvm.JvmField
     var title: String? = null

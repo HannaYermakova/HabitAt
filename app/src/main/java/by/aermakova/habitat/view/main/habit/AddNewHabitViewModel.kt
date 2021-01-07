@@ -15,9 +15,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
-class AddNewHabitViewModel : ViewModel() {
-    private val mDataBase: AppDataBase = App.component!!.dataBase
+class AddNewHabitViewModel @Inject constructor(
+        private val dataBase: AppDataBase
+): ViewModel() {
 
     @JvmField
     var title: String? = null
@@ -44,10 +46,10 @@ class AddNewHabitViewModel : ViewModel() {
                 habit.setNotificationTime(hours, minutes)
             }
             Completable.fromAction {
-                mDataBase.habitDao().insert(habit)
-                val category = mDataBase.categoryDao().getById(categoryId)
+                dataBase.habitDao().insert(habit)
+                val category = dataBase.categoryDao().getById(categoryId)
                 category?.updateCount(1)
-                mDataBase.categoryDao().update(category)
+                dataBase.categoryDao().update(category)
             }.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(object : CompletableObserver {
@@ -87,7 +89,7 @@ class AddNewHabitViewModel : ViewModel() {
     }
 
     val allCategories: LiveData<List<Category?>?>?
-        get() = mDataBase.categoryDao().all
+        get() = dataBase.categoryDao().all
 
     fun setSelectedWeekDays() {
         weekDays = tempWeekDays

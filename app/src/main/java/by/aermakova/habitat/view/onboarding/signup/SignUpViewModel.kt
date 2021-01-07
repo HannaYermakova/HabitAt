@@ -4,8 +4,9 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import by.aermakova.habitat.R
 import by.aermakova.habitat.util.SingleLiveEvent
+import javax.inject.Inject
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel @Inject constructor() : ViewModel() {
     @kotlin.jvm.JvmField
     var userName: String? = null
     val saveUserNameCommand: SingleLiveEvent<String?> = SingleLiveEvent()
