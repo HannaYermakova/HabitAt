@@ -1,19 +1,27 @@
 package by.aermakova.habitat.view.main.dashboard
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.useCase.GetListOfHabitsUseCase
+import by.aermakova.habitat.view.base.BaseViewModel
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
-        private val dataBase: AppDataBase,
-        val userName: String
-) : ViewModel() {
+    private val categoryNavigation: CategoryNavigation,
+    private val habitNavigation: HabitNavigation,
+    private val dataBase: AppDataBase,
+    val userName: String,
+    val listOfHabits: GetListOfHabitsUseCase
+) : BaseViewModel() {
 
-    val habits: LiveData<List<Habit?>?>?
-        get() = dataBase.habitDao().all
+    val addNewCategory = { categoryNavigation.navigateToAddNewElementFragment() }
+
+    val navigateFunction = { habitNavigation.navigateToAddNewElementFragment() }
+
+    init {
+        listOfHabits.get(disposable)
+    }
 
     val categories: LiveData<List<Category?>?>?
         get() = dataBase.categoryDao().all

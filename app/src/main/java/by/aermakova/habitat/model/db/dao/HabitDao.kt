@@ -1,13 +1,16 @@
 package by.aermakova.habitat.model.db.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.room.*
 import by.aermakova.habitat.model.db.entity.Habit
+import io.reactivex.Observable
 
 @Dao
 interface HabitDao {
-    @get:Query("SELECT * FROM habit")
-    val all: LiveData<List<Habit?>?>?
+
+    @Query("SELECT * FROM habit")
+    fun getAllHabits(): Observable<List<Habit>>
 
     @Query("SELECT * FROM habit WHERE categoryId = :categoryId ")
     fun getHabitsByCategoryId(categoryId: Long): LiveData<List<Habit?>?>?
