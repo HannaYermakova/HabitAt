@@ -1,20 +1,29 @@
 package by.aermakova.habitat.view.onboarding.signup
 
-import android.text.TextUtils
-import androidx.lifecycle.ViewModel
-import by.aermakova.habitat.R
-import by.aermakova.habitat.util.SingleLiveEvent
+import by.aermakova.habitat.model.useCase.SaveUserNameUseCase
+import by.aermakova.habitat.view.base.BaseViewModel
+import by.aermakova.habitat.view.navigation.EnterNavigation
+import io.reactivex.Observer
+import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
-class SignUpViewModel @Inject constructor() : ViewModel() {
-    @kotlin.jvm.JvmField
-    var userName: String? = null
-    val saveUserNameCommand: SingleLiveEvent<String?> = SingleLiveEvent()
-    val showErrorMessageCommand: SingleLiveEvent<Int?> = SingleLiveEvent()
+class SignUpViewModel @Inject constructor(
+    private val navigation: EnterNavigation,
+    private val saveUserNameUseCase: SaveUserNameUseCase
+) : BaseViewModel() {
 
-    fun saveUserName() {
-        if (!TextUtils.isEmpty(userName!!.trim { it <= ' ' })) {
-            saveUserNameCommand.setValue(userName!!.trim { it <= ' ' })
-        } else showErrorMessageCommand.setValue(R.string.error_empty_name)
+    private val _tempUserName = BehaviorSubject.create<String>()
+    val tempUserName: Observer<String>
+        get() = _tempUserName
+
+    val popBack = { navigation.popBack() }
+
+    val saveUserName = {
+        _tempUserName.value?.let {
+            saveUserNameUseCase.saveValidUserName(
+                it,
+                disposable
+            ) { navigation.enterMainScreen() }
+        }
     }
 }

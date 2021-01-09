@@ -23,7 +23,7 @@ class AppActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setContentView(view)
         val controller = Navigation.findNavController(this, R.id.app_host_fragment)
         Navigation.setViewNavController(view, controller)
-        if (Preferences.instance?.getUserName(this) != null) {
+        if (Preferences.getUserName(this) != null) {
             controller.navigate(R.id.action_welcomeFlowFragment_to_mainFlowFragment)
         }
     }

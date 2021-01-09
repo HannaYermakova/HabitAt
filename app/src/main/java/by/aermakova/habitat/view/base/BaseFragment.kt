@@ -47,6 +47,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
         binding.setVariable(bindingViewModelId, viewModel)
     }
 
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
+    }
+
     protected fun hideKeyboard() {
         val activity = requireActivity()
         val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -12,7 +12,7 @@ class DashboardModule {
 
     @Provides
     fun provideUserName(activity: Activity): String {
-        return Preferences.instance?.getUserName(activity) ?: ""
+        return Preferences.getUserName(activity) ?: ""
     }
 
     @Provides
