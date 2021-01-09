@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
+import by.aermakova.habitat.BR
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -28,6 +29,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
     @Inject
     protected lateinit var viewModel: VM
 
+    open var bindingViewModelId: Int = BR.viewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
@@ -37,7 +40,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         AndroidSupportInjection.inject(this)
-//        bindViewModel(binding, viewModel)
+        bindViewModel(binding, viewModel)
+    }
+
+    private fun bindViewModel(binding: VB, viewModel: VM) {
+        binding.setVariable(bindingViewModelId, viewModel)
     }
 
     protected fun hideKeyboard() {

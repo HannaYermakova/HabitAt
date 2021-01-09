@@ -24,9 +24,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.setUser(Preferences.instance?.getUserName(requireContext()))
-        binding.viewModel = viewModel
-        binding.noteMark.isEnabled = false
+//        viewModel.setUser(Preferences.instance?.getUserName(requireContext()))
+//        binding.viewModel = viewModel
+//        binding.noteMark.isEnabled = false
         Handler().postDelayed({ setHabitsRecycler() }, 100)
         Handler().postDelayed({ setCategoryRecycler() }, 100)
         binding.addNewCategoryButton.setOnClickListener { navigateFragment(R.id.action_mainFlowFragment_to_addNewCategoryFragment) }

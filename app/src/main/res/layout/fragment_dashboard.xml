@@ -58,7 +58,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/proxima_nova_font"
-                android:text="@{@string/hello_user(viewModel.mUserName)}"
+                android:text="@{@string/hello_user(viewModel.userName)}"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="25sp" />
 
@@ -69,6 +69,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:saveEnabled="false"
                 android:background="@drawable/notification_mark"
                 android:onClick="@{() -> viewModel.openNotificationFragment()}"
                 android:contentDescription="TODO" />
