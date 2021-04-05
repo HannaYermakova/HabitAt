@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
-import by.aermakova.habitat.R
 import by.aermakova.habitat.BR
+import by.aermakova.habitat.R
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -52,7 +54,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
         hideKeyboard()
     }
 
-    protected fun hideKeyboard() {
+    private fun hideKeyboard() {
         val activity = requireActivity()
         val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity.currentFocus ?: View(activity)
@@ -78,6 +80,10 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
         Navigation.findNavController(requireActivity(),
                 requireActivity().findViewById<View>(R.id.app_host_fragment).id)
                 .popBackStack()
+    }
+
+    protected fun <T> observe(what: LiveData<T>, action: (T) -> Unit) {
+        what.observe(viewLifecycleOwner, Observer { action(it) })
     }
 
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null

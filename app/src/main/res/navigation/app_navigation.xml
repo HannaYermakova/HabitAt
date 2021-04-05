@@ -46,6 +46,9 @@
         android:id="@+id/categoryItemFragment"
         android:name="by.aermakova.habitat.view.main.category.detail.CategoryItemFragment"
         android:label="CategoryItemFragment">
+        <argument
+            android:name="id"
+            app:argType="long" />
 
         <action
             android:id="@+id/action_categoryItemFragment_to_addNewHabitFragment"

@@ -28,7 +28,11 @@ import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
 import java.util.*
 
-class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(), OnTimeSetListener, WeekDayObserver, CategoryObserver {
+class AddNewHabitFragment :
+    BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(),
+    OnTimeSetListener,
+    WeekDayObserver,
+    CategoryObserver {
 
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
     private lateinit var mWeekDayAdapter: WeekDayAdapter
@@ -38,18 +42,17 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
     override val layoutId: Int
         get() = R.layout.fragment_add_new_habit
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         viewModel.setTime(mHours, mMinutes)
-        binding.viewModel = viewModel
         createCategoryRecycler()
         createWeekDaysRecycler()
         binding.back.setOnClickListener { backNavigation() }
         subscribeToNavigationChanged(viewModel)
         createSpinner()
         binding.setNotification.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            if (isChecked) binding.setTime.visibility = View.VISIBLE else binding.setTime.visibility = View.GONE
+            if (isChecked) binding.setTime.visibility =
+                View.VISIBLE else binding.setTime.visibility = View.GONE
             viewModel.setNotificationEnable(isChecked)
         }
         binding.showTimePickerButton.setOnClickListener {
@@ -70,15 +73,18 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
     }
 
     private fun createCategoryRecycler() {
-        binding.categoryRecycler.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        mCategoriesAdapter = CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
+        binding.categoryRecycler.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        mCategoriesAdapter =
+            CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
         mCategoriesAdapter.registerObserver(this)
         binding.categoryRecycler.adapter = mCategoriesAdapter
         setCategories()
     }
 
     private fun createWeekDaysRecycler() {
-        binding.weekDaysRecycler.layoutManager = SpanningLinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.weekDaysRecycler.layoutManager =
+            SpanningLinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mWeekDayAdapter = WeekDayAdapter()
         mWeekDayAdapter.registerObserver(this)
         binding.weekDaysRecycler.adapter = mWeekDayAdapter
@@ -89,7 +95,8 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
         variants.add(resources.getString(R.string.spinner_every_day))
         variants.add(resources.getString(R.string.spinner_select_manually))
 
-        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.schedule_spinner_row, R.id.variant, variants)
+        val spinnerAdapter =
+            ArrayAdapter(requireContext(), R.layout.schedule_spinner_row, R.id.variant, variants)
         spinnerAdapter.setDropDownViewResource(R.layout.schedule_spinner_item)
         with(binding.scheduleSpinner) {
             adapter = spinnerAdapter
@@ -99,7 +106,12 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
 
     private fun select(): OnItemSelectedListener {
         return object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 if (position == 0) {
                     binding.weekDaysRecycler.visibility = View.GONE
                     viewModel.setEveryDay()
@@ -108,14 +120,19 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
                     viewModel.setSelectedWeekDays()
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
     private fun subscribeToNavigationChanged(viewModel: AddNewHabitViewModel) {
-        viewModel.showErrorMessageCommand.observe(viewLifecycleOwner, Observer { message: Int? -> showSnackBarMessage(message!!) })
+        viewModel.showErrorMessageCommand.observe(
+            viewLifecycleOwner,
+            Observer { message: Int? -> showSnackBarMessage(message!!) })
         viewModel.saveHabitCommand.observe(viewLifecycleOwner, Observer { backNavigation() })
-        viewModel.setNotificationLogicCommand.observe(viewLifecycleOwner, Observer { habit: Habit? -> createNotificationLogic(habit) })
+        viewModel.setNotificationLogicCommand.observe(
+            viewLifecycleOwner,
+            Observer { habit: Habit? -> createNotificationLogic(habit) })
     }
 
     private fun createNotificationLogic(habit: Habit?) {
@@ -132,7 +149,9 @@ class AddNewHabitFragment : BaseFragment<FragmentAddNewHabitBinding, AddNewHabit
                 categoryList.add(category)
                 mCategoriesAdapter.setCategories(categoryList)
             }
-        } else viewModel.allCategories?.observe(viewLifecycleOwner, Observer { mCategoriesAdapter.setCategories(it) })
+        } else viewModel.allCategories?.observe(
+            viewLifecycleOwner,
+            Observer { mCategoriesAdapter.setCategories(it) })
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {

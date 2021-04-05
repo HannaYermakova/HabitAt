@@ -8,7 +8,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
+import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -66,4 +68,30 @@ fun bindCommonListToRecycler(
                 { it.printStackTrace() })
         )
     }
+}
+
+@BindingAdapter(
+    "app:bindCategoryAdapter"
+)
+fun bindCategoryListToRecycler(
+    recyclerView: RecyclerView,
+    categoryAdapter: CategoryAdapter?
+) {
+    categoryAdapter?.let {
+        with(recyclerView){
+            layoutManager = LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+            adapter = categoryAdapter
+        }
+    }
+}
+
+
+@BindingAdapter(
+    "app:set_items"
+)
+fun setItemsToRecycler(
+    recyclerView: RecyclerView,
+    items: List<Habit>?
+) {
+    items?.let { (recyclerView.adapter as? HabitListAdapter)?.setHabits(it) }
 }

@@ -5,6 +5,7 @@ import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.useCase.GetListOfHabitsUseCase
 import by.aermakova.habitat.view.base.BaseViewModel
+import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
@@ -19,12 +20,18 @@ class DashboardViewModel @Inject constructor(
 
     val navigateFunction = { habitNavigation.navigateToAddNewElementFragment() }
 
+    val categoryAdapter = CategoryAdapter(categoryNavigation)
+
+    val categories: LiveData<List<Category>>
+        get() = dataBase.categoryDao().getAllCategory()
+
     init {
         listOfHabits.get(disposable)
     }
 
-    val categories: LiveData<List<Category?>?>?
-        get() = dataBase.categoryDao().all
-
     fun openNotificationFragment() {}
+
+    fun updateCategories(categories: List<Category>) {
+        categoryAdapter.submitList(categories)
+    }
 }

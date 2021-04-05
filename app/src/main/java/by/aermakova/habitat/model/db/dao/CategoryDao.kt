@@ -6,8 +6,9 @@ import by.aermakova.habitat.model.db.entity.Category
 
 @Dao
 interface CategoryDao {
-    @get:Query("SELECT * FROM category")
-    val all: LiveData<List<Category?>?>?
+
+    @Query("SELECT * FROM category")
+    fun getAllCategory(): LiveData<List<Category>>
 
     @Query("SELECT * FROM category WHERE id = :id")
     fun getById(id: Long): Category?

@@ -18,17 +18,16 @@ import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 
 class CategoryItemFragment : BaseFragment<FragmentCategoryItemBinding, CategoryItemViewModel>() {
 
-    private var mCategory: Category? = null
-    private var mHabitAdapter: HabitListAdapter? = null
-
     override val layoutId: Int
         get() = R.layout.fragment_category_item
 
+    private var category: Category? = null
+    private val habitAdapter by lazy { HabitListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mCategory = requireArguments().getParcelable(BUNDLE_TAG)
-        setViewSettings(mCategory)
+        category = requireArguments().getParcelable(BUNDLE_TAG)
+        setViewSettings(category)
         setHabitsRecycler()
         binding.back.setOnClickListener { backNavigation() }
         binding.fabNewHabit.setOnClickListener { createNewHabit() }
@@ -37,28 +36,42 @@ class CategoryItemFragment : BaseFragment<FragmentCategoryItemBinding, CategoryI
     private fun setViewSettings(category: Category?) {
         binding.category = category
         val color: CardColor = CardColor.getColorById(category!!.color)
-        binding.headBackground.setBackgroundColor(ContextCompat.getColor(requireContext(), color.cardColorId))
-        binding.categoryTitle.setTextColor(ContextCompat.getColor(requireContext(), color.textColorId))
+        binding.headBackground.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                color.cardColorId
+            )
+        )
+        binding.categoryTitle.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                color.textColorId
+            )
+        )
     }
 
     private fun createNewHabit() {
         val args = Bundle()
-        args.putParcelable(BUNDLE_TAG, mCategory)
-        Navigation.findNavController(requireActivity(), requireActivity().findViewById<View>(R.id.app_host_fragment).id)
-                .navigate(R.id.action_categoryItemFragment_to_addNewHabitFragment, args)
+        args.putParcelable(BUNDLE_TAG, category)
+        Navigation.findNavController(
+            requireActivity(),
+            requireActivity().findViewById<View>(R.id.app_host_fragment).id
+        )
+            .navigate(R.id.action_categoryItemFragment_to_addNewHabitFragment, args)
     }
 
     private fun setHabitsRecycler() {
-        binding.habitRecycler.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-        binding.habitRecycler.addItemDecoration(ItemOffsetDecoration(8))
-        mHabitAdapter = HabitListAdapter()
-        binding.habitRecycler.adapter = mHabitAdapter
+        with(binding.habitRecycler){
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            addItemDecoration(ItemOffsetDecoration(8))
+            adapter = habitAdapter
+        }
         observeHabits()
     }
 
     private fun observeHabits() {
         viewModel.habitsList?.observe(viewLifecycleOwner,
-                Observer { habits: List<Habit?>? -> mHabitAdapter!!.setHabits(habits) })
+            Observer { habits: List<Habit?>? -> habitAdapter.setHabits(habits) })
     }
 
     companion object {

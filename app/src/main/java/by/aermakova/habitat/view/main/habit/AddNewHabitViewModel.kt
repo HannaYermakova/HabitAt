@@ -2,13 +2,12 @@ package by.aermakova.habitat.view.main.habit
 
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.util.SingleLiveEvent
-import by.aermakova.habitat.view.app.App
+import by.aermakova.habitat.view.base.BaseViewModel
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 class AddNewHabitViewModel @Inject constructor(
         private val dataBase: AppDataBase
-): ViewModel() {
+): BaseViewModel() {
 
     @JvmField
     var title: String? = null
@@ -88,8 +87,8 @@ class AddNewHabitViewModel @Inject constructor(
         Arrays.fill(weekDays, true)
     }
 
-    val allCategories: LiveData<List<Category?>?>?
-        get() = dataBase.categoryDao().all
+    val allCategories: LiveData<List<Category>>
+        get() = dataBase.categoryDao().getAllCategory()
 
     fun setSelectedWeekDays() {
         weekDays = tempWeekDays
