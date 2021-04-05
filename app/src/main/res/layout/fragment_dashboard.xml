@@ -82,9 +82,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="22dp"
                 android:orientation="horizontal"
-                app:addDisposable="@{viewModel.disposable}"
-                app:bindListHabits="@{viewModel.listOfHabits.habits}"
-                app:navigateFunction="@{viewModel.navigateFunction}"
+                app:bindHabitsAdapter="@{viewModel.habitsObserver.adapter}"
                 tools:ignore="RtlSymmetry" />
 
         </RelativeLayout>
@@ -140,7 +138,8 @@
                 android:id="@+id/category_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:bindCategoryAdapter="@{viewModel.categoryAdapter}" />
+                app:bindCategoryAdapter="@{viewModel.categoryObserver.adapter}"
+                tools:listitem="@layout/custom_category_card" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,26 +15,10 @@ class HabitCardView(context: Context) : CardView(context) {
     private var mContext: Context = context
 
     init {
-//        init(context)
         val inflater = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
         mBinding = DataBindingUtil.inflate(inflater, R.layout.habit_custom_card, this, true)
         setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     }
-
-/*    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(context)
-    }*/
-
-/*    private fun init(context: Context) {
-        mContext = context
-        val inflater = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.habit_custom_card, this, true)
-        setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-    }*/
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(heightMeasureSpec, heightMeasureSpec)

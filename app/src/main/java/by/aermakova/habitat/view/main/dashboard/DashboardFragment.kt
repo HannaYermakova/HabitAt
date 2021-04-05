@@ -12,12 +12,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        observeCategories()
-    }
-
-    private fun observeCategories() {
-        observe(viewModel.categories) {
-            viewModel.updateCategories(it)
-        }
+        observeUseCase(viewModel.habitsObserver)
+        observeUseCase(viewModel.categoryObserver)
     }
 }

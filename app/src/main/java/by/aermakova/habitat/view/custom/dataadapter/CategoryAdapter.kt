@@ -28,8 +28,7 @@ class CategoryAdapter(private val routing: MainFlowNavigation) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: CustomCategoryCardBinding =
-            DataBindingUtil.inflate(inflater, R.layout.custom_category_card, parent, false)
+        val binding: CustomCategoryCardBinding = DataBindingUtil.inflate(inflater, R.layout.custom_category_card, parent, false)
         return CategoryViewHolder(binding)
     }
 

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.habitat.BR
 import by.aermakova.habitat.R
+import by.aermakova.habitat.model.useCase.ObserveUseCase
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -84,6 +85,10 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
 
     protected fun <T> observe(what: LiveData<T>, action: (T) -> Unit) {
         what.observe(viewLifecycleOwner, Observer { action(it) })
+    }
+
+    protected fun <T> observeUseCase(useCase: ObserveUseCase<T>) {
+        useCase.what.observe(viewLifecycleOwner, Observer { useCase.action(it) })
     }
 
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null

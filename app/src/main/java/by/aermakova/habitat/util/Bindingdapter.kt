@@ -6,15 +6,13 @@ import android.view.View
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
-import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
-import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
-import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.disposables.CompositeDisposable
 
 typealias FunctionNoArgs = () -> Unit
 typealias FunctionString = (String) -> Unit
@@ -46,27 +44,19 @@ fun editTitleListener(
 }
 
 @BindingAdapter(
-    "app:bindListHabits",
-    "app:addDisposable",
-    "app:navigateFunction"
+    "app:bindHabitsAdapter"
 )
-fun bindCommonListToRecycler(
+fun bindHabitsListToRecycler(
     recyclerView: RecyclerView,
-    items: Observable<List<Habit>>?,
-    disposable: CompositeDisposable?,
-    navigateFunction: FunctionNoArgs?
+    habitMultiAdapter: ListAdapter<Habit, out RecyclerView.ViewHolder>?
 ) {
 
-    if (items != null && disposable != null && navigateFunction != null) {
-        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.addItemDecoration(ItemOffsetDecoration(10))
-        val mHabitDataAdapter = HabitDataMultiAdapter(navigateFunction)
-        recyclerView.adapter = mHabitDataAdapter
-        disposable.add(
-            items.subscribe(
-                { mHabitDataAdapter.setHabitList(it) },
-                { it.printStackTrace() })
-        )
+    habitMultiAdapter?.let {
+        with(recyclerView){
+            layoutManager = LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(ItemOffsetDecoration(10))
+            adapter = habitMultiAdapter
+        }
     }
 }
 
@@ -75,7 +65,7 @@ fun bindCommonListToRecycler(
 )
 fun bindCategoryListToRecycler(
     recyclerView: RecyclerView,
-    categoryAdapter: CategoryAdapter?
+    categoryAdapter: ListAdapter<Category, out RecyclerView.ViewHolder>?
 ) {
     categoryAdapter?.let {
         with(recyclerView){
@@ -84,7 +74,6 @@ fun bindCategoryListToRecycler(
         }
     }
 }
-
 
 @BindingAdapter(
     "app:set_items"
