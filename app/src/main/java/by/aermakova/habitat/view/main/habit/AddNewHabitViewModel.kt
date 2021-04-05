@@ -45,10 +45,10 @@ class AddNewHabitViewModel @Inject constructor(
                 habit.setNotificationTime(hours, minutes)
             }
             Completable.fromAction {
-                dataBase.habitDao().insert(habit)
+                /*dataBase.habitDao().insert(habit)
                 val category = dataBase.categoryDao().getById(categoryId)
                 category?.updateCount(1)
-                dataBase.categoryDao().update(category)
+                dataBase.categoryDao().update(category)*/
             }.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(object : CompletableObserver {
