@@ -5,12 +5,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
-import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import io.reactivex.Observer
 
@@ -52,10 +52,28 @@ fun bindHabitsListToRecycler(
 ) {
 
     habitMultiAdapter?.let {
-        with(recyclerView){
-            layoutManager = LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
+        with(recyclerView) {
+            layoutManager =
+                LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
             addItemDecoration(ItemOffsetDecoration(10))
             adapter = habitMultiAdapter
+        }
+    }
+}
+
+@BindingAdapter(
+    "app:bindSimpleHabitsAdapter"
+)
+fun bindSimpleHabitsListToRecycler(
+    recyclerView: RecyclerView,
+    habitAdapter: ListAdapter<Habit, out RecyclerView.ViewHolder>?
+) {
+
+    habitAdapter?.let {
+        with(recyclerView) {
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            addItemDecoration(ItemOffsetDecoration(8))
+            adapter = habitAdapter
         }
     }
 }
@@ -68,19 +86,28 @@ fun bindCategoryListToRecycler(
     categoryAdapter: ListAdapter<Category, out RecyclerView.ViewHolder>?
 ) {
     categoryAdapter?.let {
-        with(recyclerView){
-            layoutManager = LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+        with(recyclerView) {
+            layoutManager =
+                LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             adapter = categoryAdapter
         }
     }
 }
 
 @BindingAdapter(
-    "app:set_items"
+    "app:bindColor",
+    "app:isCardColor"
 )
-fun setItemsToRecycler(
-    recyclerView: RecyclerView,
-    items: List<Habit>?
-) {
-    items?.let { (recyclerView.adapter as? HabitListAdapter)?.setHabits(it) }
+fun bindBackgroundColor(view: View, colorId: Int?, isCardColor: Boolean?) {
+    if (colorId != null && isCardColor != null) {
+/*        val color = CardColor.getColorById(colorId)
+        view.setBackgroundColor(
+            ContextCompat.getColor(
+                view.context,
+                if (isCardColor) {
+                    color.cardColorId
+                } else color.textColorId
+            )
+        )*/
+    }
 }

@@ -32,7 +32,10 @@
     <fragment
         android:id="@+id/addNewHabitFragment"
         android:name="by.aermakova.habitat.view.main.habit.AddNewHabitFragment"
-        android:label="AddNewHabitFragment" >
+        android:label="AddNewHabitFragment">
+        <argument
+            android:name="id"
+            app:argType="long" />
         <action
             android:id="@+id/action_addNewHabitFragment_to_addNewCategoryFragment"
             app:destination="@id/addNewCategoryFragment" />

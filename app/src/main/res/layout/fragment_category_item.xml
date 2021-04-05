@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="category"
-            type="by.aermakova.habitat.model.db.entity.Category" />
+            name="viewModel"
+            type="by.aermakova.habitat.view.main.category.detail.CategoryItemViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/color_category_card_4"
+            app:bindColor="@{viewModel.category.color}"
+            app:isCardColor="@{true}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:drawableStart="@drawable/ic_back_arrow"
-                android:drawableTint="@color/color_pink" />
+                android:drawableTint="@color/color_pink"
+                app:onClick="@{viewModel.back}" />
 
             <TextView
                 android:id="@+id/category_title"
@@ -48,9 +51,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/proxima_nova"
-                android:text="@{@string/tag_category(category.title)}"
+                android:text="@{@string/tag_category(viewModel.category.title)}"
                 android:textColor="@color/color_category_card_text_4"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:bindColor="@{viewModel.category.color}"
+                app:isCardColor="@{false}" />
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -71,9 +76,8 @@
             android:id="@+id/habit_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:paddingBottom="120dp"
+            app:bindSimpleHabitsAdapter="@{viewModel.habitObserver.adapter}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline_2" />
@@ -89,6 +93,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline"
-            app:layout_constraintVertical_bias="0.95" />
+            app:layout_constraintVertical_bias="0.95"
+            app:onClick="@{viewModel.addHabit}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

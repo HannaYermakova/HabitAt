@@ -1,7 +1,6 @@
 package by.aermakova.habitat.view.custom.dataadapter
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.db.entity.Habit
@@ -13,18 +12,7 @@ private const val ADDITIONAL_TYPE = 0
 private const val REGULAR_TYPE = 1
 
 class HabitDataMultiAdapter(private val routing: MainFlowNavigation) :
-    ListAdapter<Habit, RecyclerView.ViewHolder>(DiffCallback) {
-
-    companion object DiffCallback : DiffUtil.ItemCallback<Habit>() {
-
-        override fun areItemsTheSame(oldItem: Habit, newItem: Habit): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Habit, newItem: Habit): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
+    ListAdapter<Habit, RecyclerView.ViewHolder>(HabitDiffCallback) {
 
     override fun getItemViewType(position: Int): Int {
         return if (itemCount == 1 || position == itemCount - 1) ADDITIONAL_TYPE else REGULAR_TYPE
