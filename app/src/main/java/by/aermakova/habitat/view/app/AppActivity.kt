@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.AppActivityBinding
-import by.aermakova.habitat.model.Preferences
+import by.aermakova.habitat.model.db.pref.Preferences
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector

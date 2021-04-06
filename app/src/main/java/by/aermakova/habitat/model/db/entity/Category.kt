@@ -25,10 +25,6 @@ open class Category : Parcelable {
         this.color = color
     }
 
-    fun updateCount(i: Int) {
-        count = (i + count).coerceAtLeast(0)
-    }
-
     @Ignore
     protected constructor(`in`: Parcel) {
         id = `in`.readLong()

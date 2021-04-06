@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.Preferences
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.db.pref.Preferences
 import by.aermakova.habitat.model.di.module.ViewModelKey
 import by.aermakova.habitat.model.useCase.ObserveUseCase
 import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter

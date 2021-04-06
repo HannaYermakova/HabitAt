@@ -1,4 +1,4 @@
-package by.aermakova.habitat.model
+package by.aermakova.habitat.model.db.pref
 
 import android.content.Context
 import android.content.SharedPreferences

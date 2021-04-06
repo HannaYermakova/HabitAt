@@ -35,6 +35,17 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
+    <style name="CustomEditText" parent="Theme.App.EditText">
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorPrimaryLight</item>
+        <item name="android:textSize">@dimen/edit_text_text_high</item>
+    </style>
+
     <style name="spinner_style">
         <item name="android:background">@drawable/gradient_spinner</item>
     </style>
@@ -45,5 +56,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/color_blue</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
+    </style>
+
+    <style name="RegularTitleTheme">
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/title_regular_size</item>
     </style>
 </resources>

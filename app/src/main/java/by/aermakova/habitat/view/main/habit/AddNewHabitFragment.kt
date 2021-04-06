@@ -36,6 +36,7 @@ class AddNewHabitFragment :
 
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
     private lateinit var mWeekDayAdapter: WeekDayAdapter
+
     private var mHours = 10
     private var mMinutes = 0
 
@@ -50,9 +51,9 @@ class AddNewHabitFragment :
         binding.back.setOnClickListener { backNavigation() }
         subscribeToNavigationChanged(viewModel)
         createSpinner()
-        binding.setNotification.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            if (isChecked) binding.setTime.visibility =
-                View.VISIBLE else binding.setTime.visibility = View.GONE
+        binding.notificationToggle.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (isChecked) binding.timeTitle.visibility =
+                View.VISIBLE else binding.timeTitle.visibility = View.GONE
             viewModel.setNotificationEnable(isChecked)
         }
         binding.showTimePickerButton.setOnClickListener {
@@ -136,7 +137,7 @@ class AddNewHabitFragment :
     }
 
     private fun createNotificationLogic(habit: Habit?) {
-        if (binding.setNotification.isChecked) {
+        if (binding.notificationToggle.isChecked) {
             AlarmManagerLogic(requireContext().applicationContext, habit)
         }
     }
@@ -159,7 +160,7 @@ class AddNewHabitFragment :
         mMinutes = minute
         var time = "$hourOfDay:$minute"
         if (minute == 0) time += "0"
-        binding.timeText.text = time
+        binding.timeTitle.text = time
         viewModel.setTime(hourOfDay, minute)
     }
 

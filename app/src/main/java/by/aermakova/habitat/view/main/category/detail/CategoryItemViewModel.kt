@@ -1,10 +1,12 @@
 package by.aermakova.habitat.view.main.category.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.CategoryModel
+import by.aermakova.habitat.model.model.toModel
 import by.aermakova.habitat.model.useCase.ObserveUseCase
 import javax.inject.Inject
 
@@ -15,8 +17,8 @@ class CategoryItemViewModel @Inject constructor(
     private val router: CategoryItemNavigation
 ) : ViewModel() {
 
-    val category: LiveData<Category>
-        get() = dataBase.categoryDao().getById(categoryId)
+    val category: LiveData<CategoryModel>
+        get() = map(dataBase.categoryDao().getById(categoryId)) { it.toModel() }
 
     val addHabit = { router.navigateToAddNewElementFragment(categoryId) }
 

@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.CustomToggleHabitPillBinding
 import by.aermakova.habitat.model.db.entity.Category
+import by.aermakova.habitat.model.model.toModel
 import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.util.UiUtils
 
@@ -23,7 +24,7 @@ class CategoryPillView : RelativeLayout {
     var category: Category? = null
         set(value) {
             field = value
-            mBinding!!.category = category
+            mBinding!!.category = category?.toModel()
             val color: CardColor = CardColor.getColorById(category!!.color)
             mBinding!!.categoryToggle.background = generateSelector(color)
             mBinding!!.categoryToggle.setTextColor(ContextCompat.getColor(mContext!!, color.textColorId))
