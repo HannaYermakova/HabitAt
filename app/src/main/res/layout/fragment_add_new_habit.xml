@@ -155,6 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_regular_margin"
                     android:spinnerMode="dropdown"
+                    app:addWeekdayStrategy="@{viewModel.selectWeekdaysStrategy}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/schedule_title" />
@@ -165,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_small_margin"
                     android:visibility="gone"
+                    app:visibility="@{viewModel.weekdaysRecyclerVisibility}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/schedule_spinner" />
 

@@ -10,6 +10,7 @@ import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.util.SingleLiveEvent
 import by.aermakova.habitat.view.base.BaseViewModel
 import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
+import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -49,6 +50,21 @@ class AddNewHabitViewModel @Inject constructor(
     val openTimePicker = { timePickerNavigation.openItemDialog() }
 
     val selectedTime = timePickerNavigation.getDialogResult()
+
+    val weekdaysRecyclerVisibility = MutableLiveData<Boolean>(false)
+
+    val selectWeekdaysStrategy: (Int) -> Unit = { position ->
+        when (position) {
+            WeekdaysStrategy.EVERYDAY.position -> {
+                weekdaysRecyclerVisibility.value = false
+                setEveryDay()
+            }
+            WeekdaysStrategy.CHOOSE_MANUALLY.position -> {
+                weekdaysRecyclerVisibility.value = true
+                setSelectedWeekDays()
+            }
+        }
+    }
 
     fun saveHabit() {
         if (TextUtils.isEmpty(title) || categoryId == 0L) {

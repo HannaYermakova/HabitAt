@@ -2,9 +2,6 @@ package by.aermakova.habitat.view.main.habit
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.aermakova.habitat.R
@@ -34,20 +31,15 @@ class AddNewHabitFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         createCategoryRecycler()
         createWeekDaysRecycler()
         binding.back.setOnClickListener { backNavigation() }
-
         subscribeToNavigationChanged(viewModel)
-        createSpinner()
     }
 
     private fun createCategoryRecycler() {
-        binding.categoryRecycler.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        mCategoriesAdapter =
-            CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
+        binding.categoryRecycler.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        mCategoriesAdapter = CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
         mCategoriesAdapter.registerObserver(this)
         binding.categoryRecycler.adapter = mCategoriesAdapter
         setCategories()
@@ -59,41 +51,6 @@ class AddNewHabitFragment :
         mWeekDayAdapter = WeekDayAdapter()
         mWeekDayAdapter.registerObserver(this)
         binding.weekDaysRecycler.adapter = mWeekDayAdapter
-    }
-
-    private fun createSpinner() {
-        val variants: MutableList<String> = ArrayList()
-        variants.add(resources.getString(R.string.spinner_every_day))
-        variants.add(resources.getString(R.string.spinner_select_manually))
-
-        val spinnerAdapter =
-            ArrayAdapter(requireContext(), R.layout.schedule_spinner_row, R.id.variant, variants)
-        spinnerAdapter.setDropDownViewResource(R.layout.schedule_spinner_item)
-        with(binding.scheduleSpinner) {
-            adapter = spinnerAdapter
-            onItemSelectedListener = select()
-        }
-    }
-
-    private fun select(): OnItemSelectedListener {
-        return object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (position == 0) {
-                    binding.weekDaysRecycler.visibility = View.GONE
-                    viewModel.setEveryDay()
-                } else {
-                    binding.weekDaysRecycler.visibility = View.VISIBLE
-                    viewModel.setSelectedWeekDays()
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
     private fun subscribeToNavigationChanged(viewModel: AddNewHabitViewModel) {
