@@ -1,15 +1,26 @@
 package by.aermakova.habitat.view.main.habit
 
+import android.app.Activity
 import androidx.lifecycle.ViewModel
-import by.aermakova.habitat.model.db.AppDataBase
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import by.aermakova.habitat.R
 import by.aermakova.habitat.model.di.module.ViewModelKey
-import by.aermakova.habitat.model.di.scope.ApplicationScope
+import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
 class AddNewHabitModule {
+
+    @Provides
+    fun provideNavController(activity: Activity): NavController =
+        Navigation.findNavController(activity, R.id.app_host_fragment)
+
+    @Provides
+    fun provideTimePickerNavigation(controller: NavController): TimePickerNavigation =
+        TimePickerNavigation(controller)
 
     @Provides
     @IntoMap

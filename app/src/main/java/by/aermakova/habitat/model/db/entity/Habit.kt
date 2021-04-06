@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import by.aermakova.habitat.model.db.converter.WeekDaysConverter
+import by.aermakova.habitat.model.model.TimeModel
 import java.util.*
 
 @Entity
@@ -36,9 +37,9 @@ class Habit {
         markedDays = selectedDays
     }
 
-    fun setNotificationTime(hours: Int, minutes: Int) {
-        this.hours = hours
-        minute = minutes
+    fun setNotificationTime(time: TimeModel) {
+        this.hours = time.hours
+        this.minute = time.minutes
     }
 
     override fun toString(): String {

@@ -4,14 +4,21 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.TimeModel
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
+import com.warkiz.widget.IndicatorSeekBar
+import com.warkiz.widget.OnSeekChangeListener
+import com.warkiz.widget.SeekParams
 import io.reactivex.Observer
 
 typealias FunctionNoArgs = () -> Unit
@@ -22,6 +29,46 @@ typealias FunctionLong = (Long) -> Unit
 fun clickListener(view: View, listener: FunctionNoArgs?) {
     view.setOnClickListener {
         listener?.invoke()
+    }
+}
+
+@BindingAdapter("app:visibility")
+fun setVisibility(
+    view: View,
+    isVisible: Boolean?
+) {
+    view.visibility = isVisible?.let { if (isVisible) View.VISIBLE else View.GONE } ?: View.GONE
+}
+
+@BindingAdapter("app:onStopTracking")
+fun setSeekBarSettings(
+    seekBarDuration: IndicatorSeekBar,
+    durationInDays: MutableLiveData<Int>?
+) {
+    seekBarDuration.onSeekChangeListener = object : OnSeekChangeListener {
+        override fun onSeeking(seekParams: SeekParams) {}
+        override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
+        override fun onStopTrackingTouch(seekBar: IndicatorSeekBar) {
+            durationInDays?.value = seekBar.progress
+        }
+    }
+}
+
+@BindingAdapter("app:selectedTime")
+fun setSelectedTime(
+    textView: TextView,
+    selectedTime: TimeModel?
+) {
+    textView.text = selectedTime?.toStringRepresentation() ?: "10:00"
+}
+
+@BindingAdapter("app:toggleIsChecked")
+fun setToggleButtonListener(
+    toggleButton: ToggleButton,
+    toggleButtonListener: MutableLiveData<Boolean>?
+) {
+    toggleButton.setOnCheckedChangeListener { _, checked ->
+        toggleButtonListener?.value = checked
     }
 }
 

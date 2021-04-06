@@ -2,6 +2,8 @@ package by.aermakova.habitat.model.di.module
 
 import by.aermakova.habitat.view.app.AppActivity
 import by.aermakova.habitat.view.app.AppModule
+import by.aermakova.habitat.view.custom.dialog.TimePickerFragment
+import by.aermakova.habitat.view.custom.dialog.TimePickerModule
 import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryFragment
 import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryModule
 import by.aermakova.habitat.view.main.category.detail.CategoryItemFragment
@@ -35,4 +37,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [SignUpModule::class])
     abstract fun provideSignUpFragment(): SignUpFragment
+
+    @ContributesAndroidInjector(modules = [TimePickerModule::class])
+    abstract fun provideTimePickerDialogFragment(): TimePickerFragment
 }

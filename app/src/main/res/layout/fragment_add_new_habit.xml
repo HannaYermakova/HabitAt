@@ -134,7 +134,8 @@
                         app:isb_track_background_color="@color/colorPink"
                         app:isb_track_background_size="2dp"
                         app:isb_track_progress_color="@color/colorAccent"
-                        app:isb_track_progress_size="4dp" />
+                        app:isb_track_progress_size="4dp"
+                        app:onStopTracking="@{viewModel.durationInDays}" />
                 </com.warkiz.widget.IndicatorStayLayout>
 
                 <TextView
@@ -168,53 +169,54 @@
                     app:layout_constraintTop_toBottomOf="@id/schedule_spinner" />
 
                 <TextView
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/notification_toggle"
-                    app:layout_constraintBottom_toBottomOf="@+id/notification_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/new_habit_remind"
-                    android:theme="@style/RegularTitleTheme" />
+                    android:theme="@style/RegularTitleTheme"
+                    app:layout_constraintBottom_toBottomOf="@+id/notification_toggle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/notification_toggle" />
 
                 <ToggleButton
                     android:id="@+id/notification_toggle"
                     android:layout_width="70dp"
                     android:layout_height="40dp"
-                    app:layout_constraintTop_toBottomOf="@+id/week_days_recycler"
                     android:layout_marginTop="@dimen/activity_vertical_regular_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/toggle_selector"
-                    android:checked="@{viewModel.notificationEnable}"
                     android:text=""
                     android:textOff=""
-                    android:textOn="" />
+                    android:textOn=""
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/week_days_recycler"
+                    app:toggleIsChecked="@{viewModel.notificationEnable}" />
 
                 <TextView
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/show_time_picker_button"
-                    app:layout_constraintBottom_toBottomOf="@id/show_time_picker_button"
                     android:id="@+id/time_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/new_habit_remind_time"
                     android:theme="@style/RegularTitleTheme"
-                    android:text="@string/new_habit_remind_time" />
+                    app:layout_constraintBottom_toBottomOf="@id/show_time_picker_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/show_time_picker_button"
+                    app:selectedTime="@{viewModel.selectedTime}"
+                    app:visibility="@{viewModel.notificationEnable}" />
 
                 <Button
                     android:id="@+id/show_time_picker_button"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:background="@color/color_white"
-                    android:text="@string/change_time"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/notification_toggle"
-
                     android:fontFamily="@font/proxima_nova_font"
+                    android:text="@string/change_time"
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/notification_toggle"
+                    app:onClick="@{viewModel.openTimePicker}"
+                    app:visibility="@{viewModel.notificationEnable}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -241,8 +243,8 @@
             android:textColor="@color/color_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95" />
 
