@@ -41,10 +41,6 @@ class Habit {
         minute = minutes
     }
 
-    fun updateMarkedDays(i: Int) {
-        markedDays = markedDays + i
-    }
-
     override fun toString(): String {
         return "Habit{" +
                 "id=" + id +
