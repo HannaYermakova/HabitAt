@@ -90,11 +90,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edit_text_field_high"
                     android:hint="@string/enter_habit_title"
-                    android:text="@={viewModel.title}"
                     android:theme="@style/CustomEditText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name_title" />
+                    app:layout_constraintTop_toBottomOf="@id/name_title"
+                    app:tempTitle="@{viewModel.tempHabitTitle}" />
 
                 <TextView
                     android:id="@+id/duration_title"
@@ -166,9 +166,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_small_margin"
                     android:visibility="gone"
-                    app:visibility="@{viewModel.weekdaysRecyclerVisibility}"
+                    app:bindWeekdaysSelector="@{viewModel.selectWeekdaysUseCase}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/schedule_spinner" />
+                    app:layout_constraintTop_toBottomOf="@id/schedule_spinner"
+                    app:visibility="@{viewModel.weekdaysRecyclerVisibility}" />
 
                 <TextView
                     android:layout_width="wrap_content"

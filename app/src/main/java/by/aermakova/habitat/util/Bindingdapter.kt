@@ -14,12 +14,13 @@ import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.model.TimeModel
+import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
+import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
 import com.warkiz.widget.IndicatorSeekBar
 import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
-import io.reactivex.Observer
 import java.util.*
 
 typealias FunctionNoArgs = () -> Unit
@@ -105,11 +106,11 @@ fun setToggleButtonListener(
 @BindingAdapter("app:tempTitle")
 fun editTitleListener(
     editText: EditText,
-    tempTitle: Observer<String>?
+    tempTitle: MutableLiveData<String>?
 ) {
     editText.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            tempTitle?.onNext(editText.text.toString())
+            tempTitle?.value = editText.text.toString()
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -151,6 +152,21 @@ fun bindSimpleHabitsListToRecycler(
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             addItemDecoration(ItemOffsetDecoration(8))
             adapter = habitAdapter
+        }
+    }
+}
+@BindingAdapter(
+    "app:bindWeekdaysSelector"
+)
+fun bindWeekdaysSelector(
+    recyclerView: RecyclerView,
+    selectWeekdays: SelectWeekdaysUseCase?
+) {
+    selectWeekdays?.let {
+        with(recyclerView) {
+            layoutManager = SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = it.weekdayAdapter
+            it.setInitialWeek()
         }
     }
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.useCase.CalendarDay
-import by.aermakova.habitat.model.utilenums.WeekDay
+import by.aermakova.habitat.model.utilenums.Weekday
 import by.aermakova.habitat.view.custom.CalendarDayView
 
 class CalendarDayAdapter : RecyclerView.Adapter<CalendarDayAdapter.CalendarDayHolder>() {
@@ -29,7 +29,7 @@ class CalendarDayAdapter : RecyclerView.Adapter<CalendarDayAdapter.CalendarDayHo
     class CalendarDayHolder(val view: CalendarDayView) : RecyclerView.ViewHolder(view)
 
     private fun generateWeek(): Array<CalendarDay> {
-        val weekDays: Array<WeekDay> = WeekDay.week
+        val weekDays: Array<Weekday> = Weekday.week
         val calendarDays: Array<CalendarDay> =
          Array(7) { i ->
             CalendarDay(weekDays[i], hasHabits = true, isToday = true, dayNumber = 15)

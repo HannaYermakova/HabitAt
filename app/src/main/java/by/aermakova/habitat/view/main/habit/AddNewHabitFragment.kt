@@ -11,20 +11,15 @@ import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.useCase.AlarmManagerLogic
 import by.aermakova.habitat.view.base.BaseFragment
 import by.aermakova.habitat.view.custom.dataadapter.CategoryPillsAdapter
-import by.aermakova.habitat.view.custom.dataadapter.WeekDayAdapter
-import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import by.aermakova.habitat.view.observer.CategoryObserver
-import by.aermakova.habitat.view.observer.WeekDayObserver
 import java.util.*
 
 
 class AddNewHabitFragment :
     BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(),
-    WeekDayObserver,
     CategoryObserver {
 
     private lateinit var mCategoriesAdapter: CategoryPillsAdapter
-    private lateinit var mWeekDayAdapter: WeekDayAdapter
 
     override val layoutId: Int
         get() = R.layout.fragment_add_new_habit
@@ -32,7 +27,6 @@ class AddNewHabitFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         createCategoryRecycler()
-        createWeekDaysRecycler()
         binding.back.setOnClickListener { backNavigation() }
         subscribeToNavigationChanged(viewModel)
     }
@@ -43,14 +37,6 @@ class AddNewHabitFragment :
         mCategoriesAdapter.registerObserver(this)
         binding.categoryRecycler.adapter = mCategoriesAdapter
         setCategories()
-    }
-
-    private fun createWeekDaysRecycler() {
-        binding.weekDaysRecycler.layoutManager =
-            SpanningLinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        mWeekDayAdapter = WeekDayAdapter()
-        mWeekDayAdapter.registerObserver(this)
-        binding.weekDaysRecycler.adapter = mWeekDayAdapter
     }
 
     private fun subscribeToNavigationChanged(viewModel: AddNewHabitViewModel) {
@@ -86,13 +72,8 @@ class AddNewHabitFragment :
         viewModel.setCategoryId(categoryId)
     }
 
-    override fun updateWeekDays(days: BooleanArray?) {
-        viewModel.setWeekDays(days!!)
-    }
-
     override fun onDestroy() {
         mCategoriesAdapter.unregisterObserver(this)
-        mWeekDayAdapter.unregisterObserver(this)
         super.onDestroy()
     }
 

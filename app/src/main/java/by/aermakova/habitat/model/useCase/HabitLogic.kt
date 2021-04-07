@@ -3,7 +3,7 @@ package by.aermakova.habitat.model.useCase
 import android.content.Context
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Habit
-import by.aermakova.habitat.model.utilenums.WeekDay
+import by.aermakova.habitat.model.utilenums.Weekday
 import java.util.*
 
 class HabitLogic(private val habit: Habit?, private val context: Context?) : ObjectLogic() {
@@ -59,7 +59,7 @@ class HabitLogic(private val habit: Habit?, private val context: Context?) : Obj
     val weekDaysText: String
         get() {
             val stringBuilder = StringBuilder()
-            val weekDaysList: Array<WeekDay> = WeekDay.week
+            val weekDaysList: Array<Weekday> = Weekday.week
             var week = 0
             val weekDays = habit!!.weekDays
             for (i in 0..6) {

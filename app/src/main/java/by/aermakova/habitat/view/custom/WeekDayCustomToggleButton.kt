@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.widget.CompoundButton
 import android.widget.RelativeLayout
 import by.aermakova.habitat.databinding.CustomToggleDayOfWeekBinding
-import by.aermakova.habitat.model.utilenums.WeekDay
+import by.aermakova.habitat.model.utilenums.Weekday
 
 class WeekDayCustomToggleButton(context: Context) : RelativeLayout(context) {
     private var mBinding: CustomToggleDayOfWeekBinding
@@ -23,7 +23,7 @@ class WeekDayCustomToggleButton(context: Context) : RelativeLayout(context) {
         mBinding.toggle.isChecked = v
     }
 
-    fun setWeekDay(weekDay: WeekDay) {
+    fun setWeekDay(weekDay: Weekday) {
         with(mBinding.toggle) {
             text = weekDay.day
             textOn = weekDay.day
