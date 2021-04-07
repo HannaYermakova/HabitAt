@@ -1,12 +1,10 @@
 package by.aermakova.habitat.view.main.habit
 
 import android.text.TextUtils
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.util.Constants.HABIT_DURATION_INITIAL
 import by.aermakova.habitat.util.SingleLiveEvent
@@ -23,8 +21,9 @@ import javax.inject.Inject
 
 class AddNewHabitViewModel @Inject constructor(
     val selectWeekdaysUseCase: SelectWeekdaysUseCase,
-    private val dataBase: AppDataBase,
-    private val timePickerNavigation: TimePickerNavigation
+    val selectCategoryUseCase: SelectCategoryUseCase,
+    private val timePickerNavigation: TimePickerNavigation,
+    private val router: AddNewHabitNavigation
 ) : BaseViewModel() {
 
     private var categoryId: Long = 0
@@ -34,7 +33,7 @@ class AddNewHabitViewModel @Inject constructor(
     val setNotificationLogicCommand: SingleLiveEvent<Habit> = SingleLiveEvent()
 
     private val _tempHabitTitle = MutableLiveData<String>()
-    val tempHabitTitle : MutableLiveData<String>
+    val tempHabitTitle: MutableLiveData<String>
         get() = _tempHabitTitle
 
     private val _notificationEnable = MutableLiveData(false)
@@ -44,9 +43,6 @@ class AddNewHabitViewModel @Inject constructor(
     private val _durationInDays = MutableLiveData(HABIT_DURATION_INITIAL)
     val durationInDays: MutableLiveData<Int>
         get() = _durationInDays
-
-    val allCategories: LiveData<List<Category>>
-        get() = dataBase.categoryDao().getAllCategory()
 
     val openTimePicker = { timePickerNavigation.openItemDialog() }
 
@@ -105,7 +101,5 @@ class AddNewHabitViewModel @Inject constructor(
         }
     }
 
-    fun setCategoryId(categoryId: Long) {
-        this.categoryId = categoryId
-    }
+    val back = { router.popBack() }
 }

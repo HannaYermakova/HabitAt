@@ -16,13 +16,4 @@ class DataBaseModule {
     fun providesAppDataBase(context: Context): AppDataBase {
         return Room.databaseBuilder(context, AppDataBase::class.java, "database").build()
     }
-
-/*    @Module
-    class ContextModule(private val context: Context) {
-        @Provides
-        @Singleton
-        fun providesContext(): Context {
-            return context
-        }
-    }*/
 }

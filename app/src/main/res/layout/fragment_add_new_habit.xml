@@ -38,7 +38,8 @@
             android:drawableTint="@color/color_pink"
             app:layout_constraintBottom_toBottomOf="@id/title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/title" />
+            app:layout_constraintTop_toTopOf="@id/title"
+            app:onClick="@{viewModel.back}" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -71,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_small_margin"
+                    app:bindCategorySelector="@{viewModel.selectCategoryUseCase.categoriesAdapter}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/category_title" />
 

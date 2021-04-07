@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
+import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.di.module.ViewModelKey
+import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
 import dagger.Module
@@ -25,6 +27,16 @@ class AddNewHabitModule {
     @Provides
     fun provideTimePickerNavigation(controller: NavController): TimePickerNavigation =
         TimePickerNavigation(controller)
+
+    @Provides
+    fun provideAddNewHabitNavigation(controller: NavController): AddNewHabitNavigation =
+        AddNewHabitNavigation(controller)
+
+    @Provides
+    fun provideSelectCategoryUseCase(
+        appDataBase: AppDataBase,
+        router: AddNewHabitNavigation
+    ) = SelectCategoryUseCase(appDataBase) { router.navigateToAddNewCategoryFragment() }
 
     @Provides
     @IntoMap

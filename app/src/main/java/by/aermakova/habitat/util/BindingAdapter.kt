@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.CategoryWrapper
 import by.aermakova.habitat.model.model.TimeModel
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
@@ -88,6 +89,7 @@ fun addWeekdayStrategy(
             ) {
                 selectStrategyListener?.invoke(position)
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
@@ -155,6 +157,7 @@ fun bindSimpleHabitsListToRecycler(
         }
     }
 }
+
 @BindingAdapter(
     "app:bindWeekdaysSelector"
 )
@@ -164,7 +167,8 @@ fun bindWeekdaysSelector(
 ) {
     selectWeekdays?.let {
         with(recyclerView) {
-            layoutManager = SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = it.weekdayAdapter
             it.setInitialWeek()
         }
@@ -182,6 +186,22 @@ fun bindCategoryListToRecycler(
         with(recyclerView) {
             layoutManager =
                 LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+            adapter = categoryAdapter
+        }
+    }
+}
+
+@BindingAdapter(
+    "app:bindCategorySelector"
+)
+fun bindCategorySelector(
+    recyclerView: RecyclerView,
+    categoryAdapter: ListAdapter<CategoryWrapper, out RecyclerView.ViewHolder>?
+) {
+    categoryAdapter?.let {
+        with(recyclerView) {
+            layoutManager =
+                LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = categoryAdapter
         }
     }

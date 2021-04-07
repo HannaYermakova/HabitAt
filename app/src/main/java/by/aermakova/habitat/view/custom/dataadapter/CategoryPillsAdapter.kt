@@ -11,10 +11,12 @@ import by.aermakova.habitat.view.observer.CategoryObservable
 import by.aermakova.habitat.view.observer.CategoryObserver
 import java.util.*
 
-class CategoryPillsAdapter(private val listener: View.OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CategoryObservable {
+
+class CategoryPillsAdapter(private val listener: View.OnClickListener)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CategoryObservable {
+
     private var categories: List<Category?>? = null
     private var categoryObservers: MutableList<CategoryObserver>? = null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
        return when (viewType) {

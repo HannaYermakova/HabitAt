@@ -1,42 +1,30 @@
 package by.aermakova.habitat.view.main.habit
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.FragmentAddNewHabitBinding
-import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.useCase.AlarmManagerLogic
 import by.aermakova.habitat.view.base.BaseFragment
-import by.aermakova.habitat.view.custom.dataadapter.CategoryPillsAdapter
-import by.aermakova.habitat.view.observer.CategoryObserver
-import java.util.*
 
 
 class AddNewHabitFragment :
-    BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>(),
-    CategoryObserver {
-
-    private lateinit var mCategoriesAdapter: CategoryPillsAdapter
+    BaseFragment<FragmentAddNewHabitBinding, AddNewHabitViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_add_new_habit
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        createCategoryRecycler()
-        binding.back.setOnClickListener { backNavigation() }
+        setCategoriesObserver()
         subscribeToNavigationChanged(viewModel)
     }
 
-    private fun createCategoryRecycler() {
-        binding.categoryRecycler.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        mCategoriesAdapter = CategoryPillsAdapter(View.OnClickListener { navigateFragment(R.id.action_addNewHabitFragment_to_addNewCategoryFragment) })
-        mCategoriesAdapter.registerObserver(this)
-        binding.categoryRecycler.adapter = mCategoriesAdapter
-        setCategories()
+    private fun setCategoriesObserver() {
+        observe(viewModel.selectCategoryUseCase.allCategories) {
+            viewModel.selectCategoryUseCase.setCategories(it)
+        }
     }
 
     private fun subscribeToNavigationChanged(viewModel: AddNewHabitViewModel) {
@@ -53,31 +41,5 @@ class AddNewHabitFragment :
         if (binding.notificationToggle.isChecked) {
             AlarmManagerLogic(requireContext().applicationContext, habit)
         }
-    }
-
-    private fun setCategories() {
-        if (arguments != null) {
-            val category: Category? = requireArguments().getParcelable(BUNDLE_TAG)
-            if (category != null) {
-                val categoryList: MutableList<Category> = ArrayList()
-                categoryList.add(category)
-                mCategoriesAdapter.setCategories(categoryList)
-            }
-        } else viewModel.allCategories.observe(
-            viewLifecycleOwner,
-            Observer { mCategoriesAdapter.setCategories(it) })
-    }
-
-    override fun updateCategory(categoryId: Long) {
-        viewModel.setCategoryId(categoryId)
-    }
-
-    override fun onDestroy() {
-        mCategoriesAdapter.unregisterObserver(this)
-        super.onDestroy()
-    }
-
-    companion object {
-        private const val BUNDLE_TAG = "category"
     }
 }
