@@ -1,5 +1,9 @@
 package by.aermakova.habitat.model.model
 
+import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.db.entity.Category
 
-class CategoryWrapper(val category: Category, var isSelected: Boolean)
+data class CategoryWrapper(
+    val category: Category,
+    val isSelected: MutableLiveData<Boolean>
+)

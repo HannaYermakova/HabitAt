@@ -8,7 +8,7 @@ import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 
 
-@Database(entities = [Habit::class, Category::class], version = 1)
+@Database(entities = [Habit::class, Category::class], version = 1, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun habitDao(): HabitDao
     abstract fun categoryDao(): CategoryDao

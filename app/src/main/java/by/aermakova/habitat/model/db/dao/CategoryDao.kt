@@ -10,6 +10,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category")
     fun getAllCategory(): LiveData<List<Category>>
 
+    @Query("SELECT * FROM category")
+    suspend fun getAllCategorySuspend(): List<Category>
+
     @Query("SELECT * FROM category WHERE id = :id")
     fun getById(id: Long): LiveData<Category>
 

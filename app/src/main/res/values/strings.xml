@@ -38,7 +38,7 @@
     <string name="change_time">Изменить время</string>
     <string name="spinner_every_day">Каждый день</string>
     <string name="spinner_select_manually">Выбрать вручную</string>
-    <string name="create_first_category">\u0020\u0020создать первую категорию\u0020\u0020</string>
+    <string name="create_first_category">создать категорию</string>
 
     <string name="nominative_days">день</string>
     <string name="genitive_days">дней</string>

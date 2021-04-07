@@ -2,6 +2,7 @@ package by.aermakova.habitat.view.main.habit
 
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
@@ -99,6 +100,10 @@ class AddNewHabitViewModel @Inject constructor(
                     }
                 })
         }
+    }
+
+    fun loadCategories() {
+        selectCategoryUseCase.loadCategories(viewModelScope)
     }
 
     val back = { router.popBack() }

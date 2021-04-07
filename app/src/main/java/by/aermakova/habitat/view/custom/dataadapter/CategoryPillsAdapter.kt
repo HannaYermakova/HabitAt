@@ -1,104 +1,82 @@
 package by.aermakova.habitat.view.custom.dataadapter
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import android.widget.ToggleButton
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.habitat.model.db.entity.Category
+import by.aermakova.habitat.R
+import by.aermakova.habitat.databinding.CustomToggleCategoryPillBinding
+import by.aermakova.habitat.model.model.CategoryWrapper
 import by.aermakova.habitat.view.custom.CategoryPillButtonView
-import by.aermakova.habitat.view.custom.CategoryPillView
-import by.aermakova.habitat.view.observer.CategoryObservable
-import by.aermakova.habitat.view.observer.CategoryObserver
-import java.util.*
 
+private const val ADDITIONAL_TYPE = 0
+private const val REGULAR_TYPE = 1
 
-class CategoryPillsAdapter(private val listener: View.OnClickListener)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CategoryObservable {
+class CategoryPillsAdapter(
+    private val update: (CategoryWrapper) -> Unit,
+    private val openCreateCategory: () -> Unit
+) :
+    ListAdapter<CategoryWrapper, RecyclerView.ViewHolder>(DiffCallback) {
 
-    private var categories: List<Category?>? = null
-    private var categoryObservers: MutableList<CategoryObserver>? = null
+    companion object DiffCallback : DiffUtil.ItemCallback<CategoryWrapper>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       return when (viewType) {
-            0 -> CategoryPillCreateFirstViewHolder(CategoryPillButtonView(parent.context))
-            else -> CategoryPillViewHolder(CategoryPillView(parent.context))
+        override fun areItemsTheSame(oldItem: CategoryWrapper, newItem: CategoryWrapper): Boolean {
+            return oldItem.category == newItem.category
+        }
+
+        override fun areContentsTheSame(
+            oldItem: CategoryWrapper,
+            newItem: CategoryWrapper
+        ): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (categories == null || categories!!.isEmpty()) {
-            0
-        } else 1
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder.itemViewType == 0) {
-            (holder as CategoryPillCreateFirstViewHolder).view.setOnClickListener(listener)
-        } else {
-            val view = (holder as CategoryPillViewHolder).view
-            view.category = categories!![position]
-            if (categories!!.size == 1) {
-                view.isSelected = true
-                view.isEnabled = false
-                notifyObserverCategory(view.category!!.id)
-            } else {
-                if (categoryPillViews == null) {
-                    categoryPillViews = HashSet()
-                }
-                view.setOnCheckListener { buttonView: CompoundButton?, isChecked: Boolean ->
-                    if (isChecked) {
-                        notifyObserverCategory(view.category!!.id)
-                        for (pillView in categoryPillViews!!) {
-                            if (pillView != view) {
-                                pillView.isSelected = false
-                            }
-                        }
-                    }
-                }
-                categoryPillViews!!.add(view)
-            }
-        }
+        return if (itemCount == 1 || position == itemCount - 1) ADDITIONAL_TYPE else REGULAR_TYPE
     }
 
     override fun getItemCount(): Int {
-        return if (categories != null && categories!!.isNotEmpty()) categories!!.size else 1
+        return super.getItemCount() + 1
     }
 
-    fun setCategories(categories: List<Category?>?) {
-        this.categories = categories
-        notifyDataSetChanged()
-    }
-
-    override fun registerObserver(o: CategoryObserver) {
-        if (categoryObservers == null) {
-            categoryObservers = ArrayList()
-        }
-        categoryObservers!!.add(o)
-    }
-
-    override fun unregisterObserver(o: CategoryObserver) {
-        if (categoryObservers != null) {
-            categoryObservers!!.remove(o)
-            if (categoryObservers!!.isEmpty()) {
-                categoryObservers = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ADDITIONAL_TYPE -> CategoryPillCreateFirstViewHolder(CategoryPillButtonView(parent.context))
+            else -> {
+                val inflater = LayoutInflater.from(parent.context)
+                val binding: CustomToggleCategoryPillBinding = DataBindingUtil.inflate(
+                    inflater,
+                    R.layout.custom_toggle_category_pill,
+                    parent,
+                    false
+                )
+                CategoryPillViewHolder(binding)
             }
         }
     }
 
-    override fun notifyObserverCategory(categoryId: Long) {
-        if (categoryObservers != null) {
-            for (categoryObserver in categoryObservers!!) {
-                categoryObserver.updateCategory(categoryId)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder.itemViewType) {
+            ADDITIONAL_TYPE -> (holder as CategoryPillCreateFirstViewHolder).view.setOnClickListener { openCreateCategory.invoke() }
+            else -> {
+                val wrapper = getItem(position)
+                val binding = (holder as CategoryPillViewHolder).binding
+                binding.category = wrapper
+                (binding.root as ToggleButton).setOnCheckedChangeListener { _, isChecked ->
+                    if(isChecked) update.invoke(wrapper)
+                    notifyDataSetChanged()
+                }
             }
         }
     }
 
-    internal class CategoryPillViewHolder(val view: CategoryPillView) : RecyclerView.ViewHolder(view)
+    class CategoryPillViewHolder(val binding: CustomToggleCategoryPillBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    internal class CategoryPillCreateFirstViewHolder(val view: CategoryPillButtonView) : RecyclerView.ViewHolder(view)
-
-    companion object {
-        private var categoryPillViews: MutableSet<CategoryPillView>? = null
-    }
-
+    class CategoryPillCreateFirstViewHolder(val view: CategoryPillButtonView) :
+        RecyclerView.ViewHolder(view)
 }

@@ -25,6 +25,7 @@ class AddNewHabitFragment :
         observe(viewModel.selectCategoryUseCase.allCategories) {
             viewModel.selectCategoryUseCase.setCategories(it)
         }
+        viewModel.loadCategories()
     }
 
     private fun subscribeToNavigationChanged(viewModel: AddNewHabitViewModel) {

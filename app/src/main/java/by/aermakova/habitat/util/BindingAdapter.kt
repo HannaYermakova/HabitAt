@@ -1,9 +1,15 @@
 package by.aermakova.habitat.util
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +22,7 @@ import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.model.CategoryWrapper
 import by.aermakova.habitat.model.model.TimeModel
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
+import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
@@ -223,4 +230,60 @@ fun bindBackgroundColor(view: View, colorId: Int?, isCardColor: Boolean?) {
             )
         )*/
     }
+}
+
+@BindingAdapter(
+    "app:bindCategoryWrapper"
+)
+fun bindCategoryWrapper(
+    categoryToggle: ToggleButton,
+    categoryWrapper: CategoryWrapper?
+) {
+    categoryWrapper?.let {
+        val context = categoryToggle.context
+        val color: CardColor = CardColor.getColorById(it.category.color)
+        categoryToggle.background = generateSelector(color, context)
+        categoryToggle.setTextColor(ContextCompat.getColor(context, color.textColorId))
+    }
+}
+
+@BindingAdapter(
+    "app:isCategoryChecked"
+)
+fun bindCategoryCheckedListener(
+    categoryToggle: ToggleButton,
+    isChecked: Boolean?
+) {
+    isChecked?.let {
+        categoryToggle.isChecked = it
+    }
+}
+
+private fun generateSelector(color: CardColor, context: Context): Drawable {
+    val drawable = StateListDrawable()
+    drawable.addState(
+        intArrayOf(android.R.attr.state_checked),
+        generatePillDrawable(color.cardColorId, color.textColorId, context)
+    )
+    drawable.addState(
+        intArrayOf(android.R.attr.state_enabled),
+        generatePillDrawable(color.cardColorId, 0, context)
+    )
+    return drawable
+}
+
+private fun generatePillDrawable(
+    backgroundColor: Int,
+    borderColor: Int,
+    context: Context
+): Drawable {
+    val shape = GradientDrawable()
+    shape.shape = GradientDrawable.RECTANGLE
+    shape.cornerRadius = UiUtils.CORNER_RADIUS.toFloat()
+    shape.setColor(ContextCompat.getColor(context, backgroundColor))
+    if (borderColor > 0) shape.setStroke(
+        UiUtils.STROKE_WIDTH,
+        ContextCompat.getColor(context, borderColor)
+    ) else shape.setStroke(UiUtils.STROKE_WIDTH, Color.TRANSPARENT)
+    return shape
 }
