@@ -3,35 +3,26 @@ package by.aermakova.habitat.view.main.habit
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.useCase.HabitAlarmUseCase
+import by.aermakova.habitat.model.useCase.SaveNewHabitUseCase
 import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.util.Constants.HABIT_DURATION_INITIAL
-import by.aermakova.habitat.util.SingleLiveEvent
 import by.aermakova.habitat.view.base.BaseViewModel
 import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
 import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
-import io.reactivex.Completable
-import io.reactivex.CompletableObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
 class AddNewHabitViewModel @Inject constructor(
     val selectWeekdaysUseCase: SelectWeekdaysUseCase,
     val selectCategoryUseCase: SelectCategoryUseCase,
+    val saveNewHabitUseCase: SaveNewHabitUseCase,
+    private val habitAlarmUseCase: HabitAlarmUseCase,
     private val timePickerNavigation: TimePickerNavigation,
     private val router: AddNewHabitNavigation
-) : BaseViewModel() {
-
-    private var categoryId: Long = 0
-
-    val saveHabitCommand: SingleLiveEvent<Void> = SingleLiveEvent()
-    val showErrorMessageCommand: SingleLiveEvent<Int> = SingleLiveEvent()
-    val setNotificationLogicCommand: SingleLiveEvent<Habit> = SingleLiveEvent()
+    ) : BaseViewModel() {
 
     private val _tempHabitTitle = MutableLiveData<String>()
     val tempHabitTitle: MutableLiveData<String>
@@ -64,16 +55,19 @@ class AddNewHabitViewModel @Inject constructor(
         }
     }
 
-    fun saveHabit() {
-        if (TextUtils.isEmpty(tempHabitTitle.value) || categoryId == 0L) {
-            showErrorMessageCommand.setValue(R.string.error_empty_fields)
+    private fun generateHabit(): Habit? {
+        return if (TextUtils.isEmpty(tempHabitTitle.value)
+            || (selectCategoryUseCase.selectedCategory == null)
+        ) {
+            showEmptyFieldsError()
+            null
         } else {
             val startTime = System.currentTimeMillis()
             val habit = Habit(
-                tempHabitTitle.value,
+                _tempHabitTitle.value,
                 _durationInDays.value!!,
                 startTime,
-                categoryId,
+                1,
                 selectWeekdaysUseCase.getSelected(),
                 notificationEnable.value!!,
                 0
@@ -81,29 +75,27 @@ class AddNewHabitViewModel @Inject constructor(
             if (notificationEnable.value!! && selectedTime.value != null) {
                 habit.setNotificationTime(selectedTime.value!!)
             }
-            Completable.fromAction {
-                /*dataBase.habitDao().insert(habit)
-                val category = dataBase.categoryDao().getById(categoryId)
-                category?.updateCount(1)
-                dataBase.categoryDao().update(category)*/
-            }.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-                    override fun onComplete() {
-                        saveHabitCommand.call()
-                        setNotificationLogicCommand.value = habit
-                    }
-
-                    override fun onError(e: Throwable) {
-                        showErrorMessageCommand.value = R.string.error_db
-                    }
-                })
+            habit
         }
+    }
+
+    val saveHabit = {
+        saveNewHabitUseCase.saveHabit(generateHabit(), viewModelScope) {
+            showError()
+        }
+    }
+
+    private fun createHabitAlarm(habit: Habit) {
+        habitAlarmUseCase.setAllHabitAlarms(habit)
     }
 
     fun loadCategories() {
         selectCategoryUseCase.loadCategories(viewModelScope)
+    }
+
+    fun setAlarmAndClose(habit: Habit?) {
+        habit?.let { createHabitAlarm(habit) }
+        back.invoke()
     }
 
     val back = { router.popBack() }

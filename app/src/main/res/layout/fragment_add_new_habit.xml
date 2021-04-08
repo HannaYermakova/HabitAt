@@ -242,7 +242,7 @@
             android:layout_marginEnd="@dimen/activity_button_side_margin"
             android:background="@drawable/btn_custom_rect"
             android:fontFamily="@font/proxima_nova_bold"
-            android:onClick="@{() -> viewModel.saveHabit()}"
+            app:onClick="@{viewModel.saveHabit}"
             android:text="@string/create_txt"
             android:textAllCaps="false"
             android:textColor="@color/color_white"

@@ -8,6 +8,7 @@ import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.toModel
 import by.aermakova.habitat.model.useCase.ObserveUseCase
+import by.aermakova.habitat.view.base.BaseViewModel
 import javax.inject.Inject
 
 class CategoryItemViewModel @Inject constructor(
@@ -15,7 +16,7 @@ class CategoryItemViewModel @Inject constructor(
     private val categoryId: Long,
     private val dataBase: AppDataBase,
     private val router: CategoryItemNavigation
-) : ViewModel() {
+) : BaseViewModel() {
 
     val category: LiveData<CategoryModel>
         get() = map(dataBase.categoryDao().getById(categoryId)) { it.toModel() }

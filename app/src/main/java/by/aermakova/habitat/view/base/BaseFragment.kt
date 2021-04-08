@@ -12,7 +12,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.habitat.BR
 import by.aermakova.habitat.R
@@ -24,7 +23,8 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), HasSupportFragmentInjector {
+abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment(),
+    HasSupportFragmentInjector {
 
     abstract val layoutId: Int
     protected lateinit var binding: VB
@@ -34,7 +34,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
 
     open var bindingViewModelId: Int = BR.viewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         return binding.root
@@ -44,6 +48,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
         super.onActivityCreated(savedInstanceState)
         AndroidSupportInjection.inject(this)
         bindViewModel(binding, viewModel)
+        handleEmptyFieldException()
     }
 
     private fun bindViewModel(binding: VB, viewModel: VM) {
@@ -55,9 +60,15 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
         hideKeyboard()
     }
 
+    private fun handleEmptyFieldException() {
+        observe(viewModel.showErrorMessageCommand)
+        { it?.let { showSnackBarMessage(it) } }
+    }
+
     private fun hideKeyboard() {
         val activity = requireActivity()
-        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity.currentFocus ?: View(activity)
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
@@ -71,16 +82,20 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment(), 
     }
 
     protected fun navigateFragment(action: Int) {
-        Navigation.findNavController(requireActivity(),
-                requireActivity().findViewById<View>(R.id.app_host_fragment).id)
-                .navigate(action)
+        Navigation.findNavController(
+            requireActivity(),
+            requireActivity().findViewById<View>(R.id.app_host_fragment).id
+        )
+            .navigate(action)
     }
 
     protected fun backNavigation() {
         hideKeyboard()
-        Navigation.findNavController(requireActivity(),
-                requireActivity().findViewById<View>(R.id.app_host_fragment).id)
-                .popBackStack()
+        Navigation.findNavController(
+            requireActivity(),
+            requireActivity().findViewById<View>(R.id.app_host_fragment).id
+        )
+            .popBackStack()
     }
 
     protected fun <T> observe(what: LiveData<T>, action: (T) -> Unit) {

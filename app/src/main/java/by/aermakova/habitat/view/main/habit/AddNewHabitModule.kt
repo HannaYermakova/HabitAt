@@ -4,9 +4,12 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.di.module.ViewModelKey
+import by.aermakova.habitat.model.useCase.HabitAlarmUseCase
+import by.aermakova.habitat.model.useCase.SaveNewHabitUseCase
 import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
@@ -19,6 +22,10 @@ class AddNewHabitModule {
 
     @Provides
     fun provideSelectWeekdaysUseCase() = SelectWeekdaysUseCase()
+
+    @Provides
+    fun provideHabitAlarmUseCase(activity: Activity): HabitAlarmUseCase =
+        HabitAlarmUseCase(activity.applicationContext)
 
     @Provides
     fun provideNavController(activity: Activity): NavController =
@@ -37,6 +44,14 @@ class AddNewHabitModule {
         appDataBase: AppDataBase,
         router: AddNewHabitNavigation
     ) = SelectCategoryUseCase(appDataBase) { router.navigateToAddNewCategoryFragment() }
+
+/*    @Provides
+    fun provideArgsId(fragment: AddNewHabitFragment): Long {
+        return fragment.navArgs<AddNewHabitFragmentArgs>().value.id
+    }*/
+
+    @Provides
+    fun provideSaveNewHabitUseCase(appDataBase: AppDataBase) = SaveNewHabitUseCase(appDataBase)
 
     @Provides
     @IntoMap

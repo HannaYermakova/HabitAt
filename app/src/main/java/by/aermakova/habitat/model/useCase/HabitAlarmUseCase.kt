@@ -7,12 +7,18 @@ import android.content.Intent
 import by.aermakova.habitat.model.db.entity.Habit
 import java.util.*
 
-class AlarmManagerLogic(private val context: Context, habit: Habit?) {
-    private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    private fun setAllHabitAlarms(habit: Habit?) {
-        if (habit!!.isNotificationEnable) {
+class HabitAlarmUseCase(private val context: Context) {
+
+    companion object {
+        private const val HABIT_TITLE_TAG = "habit_title"
+    }
+
+    private val alarmManager by lazy { context.getSystemService(Context.ALARM_SERVICE) as AlarmManager }
+
+    fun setAllHabitAlarms(habit: Habit) {
+        if (habit.isNotificationEnable) {
             val table = habit.weekDays
-            for (i in table!!.indices) {
+            for (i in table.indices) {
                 if (table[i]) {
                     val weekDay: Int = if (i == 6) 1 else i + 2
                     val intent = Intent(context, AlarmReceiver::class.java)
@@ -34,13 +40,5 @@ class AlarmManagerLogic(private val context: Context, habit: Habit?) {
         println(calendar.time)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
                 AlarmManager.INTERVAL_DAY * 7, alarmIntent)
-    }
-
-    companion object {
-        private const val HABIT_TITLE_TAG = "habit_title"
-    }
-
-    init {
-        setAllHabitAlarms(habit)
     }
 }

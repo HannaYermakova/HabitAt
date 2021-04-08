@@ -6,6 +6,7 @@ import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.util.SingleLiveEvent
+import by.aermakova.habitat.view.base.BaseViewModel
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,14 +16,13 @@ import javax.inject.Inject
 
 class AddNewCategoryViewModel @Inject constructor(
         private val dataBase: AppDataBase
-) : ViewModel() {
+) : BaseViewModel() {
 
 
     @kotlin.jvm.JvmField
     var title: String? = null
     private var color = 0
     val saveCategoryCommand: SingleLiveEvent<Void?> = SingleLiveEvent()
-    val showErrorMessageCommand: SingleLiveEvent<Int?> = SingleLiveEvent()
 
     fun saveCategory() {
         if (TextUtils.isEmpty(title) || color == 0) {

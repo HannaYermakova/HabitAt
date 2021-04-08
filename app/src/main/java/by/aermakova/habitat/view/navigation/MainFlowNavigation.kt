@@ -4,7 +4,7 @@ interface MainFlowNavigation {
 
     fun navigateToAddNewElementFragment()
 
-    fun navigateToShowDetailsFragment(id: Long)
+    fun navigateToShowDetailsFragment(id: Long= -1L)
 
     fun popBack()
 }

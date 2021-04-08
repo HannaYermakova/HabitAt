@@ -20,7 +20,7 @@ interface HabitDao {
     fun getByStartTime(startTime: Long): Habit?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(habit: Habit?)
+   suspend fun insert(habit: Habit)
 
     @Update
     fun update(habit: Habit?)

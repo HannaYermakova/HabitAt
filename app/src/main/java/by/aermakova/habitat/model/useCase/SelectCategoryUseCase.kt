@@ -1,6 +1,5 @@
 package by.aermakova.habitat.model.useCase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.db.AppDataBase
@@ -20,10 +19,12 @@ class SelectCategoryUseCase(
         updateSelectedCategory(it)
     }, openCreateCategory)
 
-    private var selectedCategory: CategoryWrapper? = null
+    private var _selectedCategory: CategoryWrapper? = null
+    val selectedCategory: CategoryWrapper?
+        get()  = _selectedCategory
 
     private fun updateSelectedCategory(selectedCategory: CategoryWrapper) {
-        this.selectedCategory = selectedCategory
+        this._selectedCategory = selectedCategory
         _allCategories.value?.let {
             it.map { wrapper ->
                 wrapper.isSelected.value = wrapper.category == selectedCategory.category
