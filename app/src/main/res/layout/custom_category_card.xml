@@ -7,7 +7,7 @@
 
         <variable
             name="category"
-            type="by.aermakova.habitat.model.db.entity.Category" />
+            type="by.aermakova.habitat.model.model.CategoryModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,18 +21,19 @@
             android:id="@+id/card_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:categoryBackgroundColor="@{category}"
             android:background="@color/color_category_card_4"
             android:orientation="vertical"
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/card_text"
+                android:id="@+id/category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proxima_nova_bold"
                 android:text="@{@string/tag_category(category.title)}"
-                android:textColor="@color/color_category_card_text_4"
-                android:textSize="25sp" />
+                app:categoryTitleColor="@{category}"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/habit_counter"

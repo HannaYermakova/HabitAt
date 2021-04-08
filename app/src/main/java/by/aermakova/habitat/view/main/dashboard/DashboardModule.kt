@@ -2,6 +2,7 @@ package by.aermakova.habitat.view.main.dashboard
 
 import android.app.Activity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations.map
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
@@ -10,6 +11,8 @@ import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.db.pref.Preferences
 import by.aermakova.habitat.model.di.module.ViewModelKey
+import by.aermakova.habitat.model.model.CategoryModel
+import by.aermakova.habitat.model.model.toModel
 import by.aermakova.habitat.model.useCase.ObserveUseCase
 import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
@@ -44,10 +47,10 @@ class DashboardModule {
     fun provideCategoryObserve(
         routing: CategoryNavigation,
         dataBase: AppDataBase
-    ): ObserveUseCase<Category> =
-        object : ObserveUseCase<Category>(CategoryAdapter(routing)) {
-            override fun getList(): LiveData<List<Category>> {
-                return dataBase.categoryDao().getAllCategory()
+    ): ObserveUseCase<CategoryModel> =
+        object : ObserveUseCase<CategoryModel>(CategoryAdapter(routing)) {
+            override fun getList(): LiveData<List<CategoryModel>> {
+                return map(dataBase.categoryDao().getAllCategory()){ it -> it.map { it.toModel() }}
             }
         }
 

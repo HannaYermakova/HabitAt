@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.CategoryWrapper
 import by.aermakova.habitat.model.model.TimeModel
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
@@ -174,8 +176,7 @@ fun bindWeekdaysSelector(
 ) {
     selectWeekdays?.let {
         with(recyclerView) {
-            layoutManager =
-                SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = it.weekdayAdapter
             it.setInitialWeek()
         }
@@ -187,7 +188,7 @@ fun bindWeekdaysSelector(
 )
 fun bindCategoryListToRecycler(
     recyclerView: RecyclerView,
-    categoryAdapter: ListAdapter<Category, out RecyclerView.ViewHolder>?
+    categoryAdapter: ListAdapter<CategoryModel, out RecyclerView.ViewHolder>?
 ) {
     categoryAdapter?.let {
         with(recyclerView) {
@@ -215,22 +216,26 @@ fun bindCategorySelector(
 }
 
 @BindingAdapter(
-    "app:bindColor",
-    "app:isCardColor"
+    "app:categoryTitleColor"
 )
-fun bindBackgroundColor(view: View, colorId: Int?, isCardColor: Boolean?) {
-    if (colorId != null && isCardColor != null) {
-/*        val color = CardColor.getColorById(colorId)
-        view.setBackgroundColor(
-            ContextCompat.getColor(
-                view.context,
-                if (isCardColor) {
-                    color.cardColorId
-                } else color.textColorId
-            )
-        )*/
+fun setCategoryTitleColor(view: TextView, category: CategoryModel?) {
+    category?.let {
+        val color = CardColor.getColorById(it.color)
+        view.setTextColor(ContextCompat.getColor(view.context, color.textColorId))
     }
 }
+
+@BindingAdapter(
+    "app:categoryBackgroundColor"
+)
+fun setCategoryBackgroundColor(view: View, category: CategoryModel?) {
+    category?.let {
+        val color = CardColor.getColorById(it.color)
+        Log.d("A_BindingAdapter", "$it $color")
+        view.setBackgroundColor(ContextCompat.getColor(view.context, color.cardColorId))
+    }
+}
+
 
 @BindingAdapter(
     "app:bindCategoryWrapper"

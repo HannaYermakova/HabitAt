@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.CustomCategoryCardBinding
-import by.aermakova.habitat.model.db.entity.Category
+import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter.CategoryViewHolder
 import by.aermakova.habitat.view.navigation.MainFlowNavigation
 
 class CategoryAdapter(private val routing: MainFlowNavigation) :
-    ListAdapter<Category, CategoryViewHolder>(DiffCallback) {
+    ListAdapter<CategoryModel, CategoryViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Category>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<CategoryModel>() {
 
-        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        override fun areItemsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        override fun areContentsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
