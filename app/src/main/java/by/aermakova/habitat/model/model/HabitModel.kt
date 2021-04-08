@@ -1,14 +1,8 @@
-package by.aermakova.habitat.model.db.entity
+package by.aermakova.habitat.model.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import by.aermakova.habitat.model.db.converter.WeekDaysConverter
+import by.aermakova.habitat.model.db.entity.Habit
 
-@Entity
-@TypeConverters(WeekDaysConverter::class)
-data class Habit(
-    @PrimaryKey(autoGenerate = true)
+data class HabitModel(
     val id: Long = 0,
     val title: String,
     val day: Int,
@@ -20,11 +14,12 @@ data class Habit(
     val minute: Int,
     val markedDays: Int
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Habit
+        other as HabitModel
 
         if (id != other.id) return false
         if (title != other.title) return false
@@ -53,4 +48,33 @@ data class Habit(
         result = 31 * result + markedDays
         return result
     }
+}
+
+fun Habit.toModel(): HabitModel {
+    return HabitModel(
+        id,
+        title ?: "",
+        day,
+        startTime,
+        categoryId,
+        weekDays,
+        isNotificationEnable,
+        hours,
+        minute,
+        markedDays
+    )
+}
+
+fun HabitModel.toEntity(): Habit {
+    return Habit(
+        title = title,
+        day = day,
+        categoryId = categoryId,
+        startTime = startTime,
+        weekDays = weekDays,
+        isNotificationEnable = isNotificationEnable,
+        hours = hours,
+        minute = minute,
+        markedDays = markedDays
+    )
 }

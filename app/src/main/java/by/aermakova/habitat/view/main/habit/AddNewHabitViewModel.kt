@@ -3,7 +3,7 @@ package by.aermakova.habitat.view.main.habit
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.HabitModel
 import by.aermakova.habitat.model.useCase.HabitAlarmUseCase
 import by.aermakova.habitat.model.useCase.SaveNewHabitUseCase
 import by.aermakova.habitat.model.useCase.SelectCategoryUseCase
@@ -55,7 +55,7 @@ class AddNewHabitViewModel @Inject constructor(
         }
     }
 
-    private fun generateHabit(): Habit? {
+    private fun generateHabit(): HabitModel? {
         return if (TextUtils.isEmpty(tempHabitTitle.value)
             || (selectCategoryUseCase.selectedCategory == null)
         ) {
@@ -63,18 +63,17 @@ class AddNewHabitViewModel @Inject constructor(
             null
         } else {
             val startTime = System.currentTimeMillis()
-            val habit = Habit(
-                _tempHabitTitle.value,
-                _durationInDays.value!!,
-                startTime,
-                1,
-                selectWeekdaysUseCase.getSelected(),
-                notificationEnable.value!!,
-                0
+            val habit = HabitModel(
+                title = _tempHabitTitle.value!!,
+                day = _durationInDays.value!!,
+                startTime = startTime,
+                categoryId = 1,
+                weekDays = selectWeekdaysUseCase.getSelected(),
+                isNotificationEnable = notificationEnable.value!!,
+                hours = selectedTime.value?.hours?: 0,
+                minute = selectedTime.value?.minutes?:0,
+                markedDays = 0
             )
-            if (notificationEnable.value!! && selectedTime.value != null) {
-                habit.setNotificationTime(selectedTime.value!!)
-            }
             habit
         }
     }
@@ -85,7 +84,7 @@ class AddNewHabitViewModel @Inject constructor(
         }
     }
 
-    private fun createHabitAlarm(habit: Habit) {
+    private fun createHabitAlarm(habit: HabitModel) {
         habitAlarmUseCase.setAllHabitAlarms(habit)
     }
 
@@ -93,7 +92,7 @@ class AddNewHabitViewModel @Inject constructor(
         selectCategoryUseCase.loadCategories(viewModelScope)
     }
 
-    fun setAlarmAndClose(habit: Habit?) {
+    fun setAlarmAndClose(habit: HabitModel?) {
         habit?.let { createHabitAlarm(habit) }
         back.invoke()
     }

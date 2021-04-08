@@ -12,4 +12,3 @@ data class CategoryModel(
 fun Category.toModel(): CategoryModel {
     return CategoryModel(id, title?: "", count, color)
 }
-

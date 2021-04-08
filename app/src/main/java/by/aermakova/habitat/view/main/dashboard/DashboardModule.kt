@@ -7,8 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.db.entity.Category
-import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.db.pref.Preferences
 import by.aermakova.habitat.model.di.module.ViewModelKey
 import by.aermakova.habitat.model.model.CategoryModel
@@ -20,7 +18,7 @@ import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import kotlinx.coroutines.Job
+
 
 @Module
 class DashboardModule {

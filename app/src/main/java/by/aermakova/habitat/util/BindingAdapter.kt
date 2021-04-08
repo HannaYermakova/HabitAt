@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.CategoryWrapper
+import by.aermakova.habitat.model.model.HabitModel
 import by.aermakova.habitat.model.model.TimeModel
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.model.utilenums.CardColor
@@ -135,7 +135,7 @@ fun editTitleListener(
 )
 fun bindHabitsListToRecycler(
     recyclerView: RecyclerView,
-    habitMultiAdapter: ListAdapter<Habit, out RecyclerView.ViewHolder>?
+    habitMultiAdapter: ListAdapter<HabitModel, out RecyclerView.ViewHolder>?
 ) {
 
     habitMultiAdapter?.let {
@@ -153,7 +153,7 @@ fun bindHabitsListToRecycler(
 )
 fun bindSimpleHabitsListToRecycler(
     recyclerView: RecyclerView,
-    habitAdapter: ListAdapter<Habit, out RecyclerView.ViewHolder>?
+    habitAdapter: ListAdapter<HabitModel, out RecyclerView.ViewHolder>?
 ) {
 
     habitAdapter?.let {

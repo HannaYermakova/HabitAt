@@ -3,7 +3,7 @@ package by.aermakova.habitat.view.custom.dataadapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.HabitModel
 import by.aermakova.habitat.view.custom.HabitCardAdditionalView
 import by.aermakova.habitat.view.custom.HabitCardView
 import by.aermakova.habitat.view.navigation.MainFlowNavigation
@@ -12,7 +12,7 @@ private const val ADDITIONAL_TYPE = 0
 private const val REGULAR_TYPE = 1
 
 class HabitDataMultiAdapter(private val routing: MainFlowNavigation) :
-    ListAdapter<Habit, RecyclerView.ViewHolder>(HabitDiffCallback) {
+    ListAdapter<HabitModel, RecyclerView.ViewHolder>(HabitDiffCallback) {
 
     override fun getItemViewType(position: Int): Int {
         return if (itemCount == 1 || position == itemCount - 1) ADDITIONAL_TYPE else REGULAR_TYPE

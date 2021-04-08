@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.HabitModel
 import java.util.*
 
 class HabitAlarmUseCase(private val context: Context) {
@@ -15,7 +15,7 @@ class HabitAlarmUseCase(private val context: Context) {
 
     private val alarmManager by lazy { context.getSystemService(Context.ALARM_SERVICE) as AlarmManager }
 
-    fun setAllHabitAlarms(habit: Habit) {
+    fun setAllHabitAlarms(habit: HabitModel) {
         if (habit.isNotificationEnable) {
             val table = habit.weekDays
             for (i in table.indices) {

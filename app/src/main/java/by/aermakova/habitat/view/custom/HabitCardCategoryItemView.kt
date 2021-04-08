@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.HabitCustomCardContrantBinding
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.HabitModel
 import by.aermakova.habitat.model.useCase.HabitLogic
 
 class HabitCardCategoryItemView(context: Context) : CardView(context) {
@@ -24,7 +24,7 @@ class HabitCardCategoryItemView(context: Context) : CardView(context) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
 
-    fun setHabitItem(habit: Habit?) {
+    fun setHabitItem(habit: HabitModel?) {
         mBinding.habitItem = habit
         mBinding.habitLogic = HabitLogic(habit, mContext)
     }

@@ -2,11 +2,11 @@ package by.aermakova.habitat.model.useCase
 
 import android.content.Context
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.db.entity.Habit
+import by.aermakova.habitat.model.model.HabitModel
 import by.aermakova.habitat.model.utilenums.Weekday
 import java.util.*
 
-class HabitLogic(private val habit: Habit?, private val context: Context?) : ObjectLogic() {
+class HabitLogic(private val habit: HabitModel?, private val context: Context?) : ObjectLogic() {
     val progressText: String
         get() = "$currentTimeProgress%"
 
@@ -20,7 +20,7 @@ class HabitLogic(private val habit: Habit?, private val context: Context?) : Obj
     /**
      * Monday accepted as the first day of the week.
      *
-     * @return the first day of the habit as index in weekDays array in [Habit]
+     * @return the first day of the habit as index in weekDays array in [HabitModel]
      */
     private val startDayOfTheWeek: Int
         get() {

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="habitItem"
-            type="by.aermakova.habitat.model.db.entity.Habit" />
+            type="by.aermakova.habitat.model.model.HabitModel" />
     </data>
 
     <androidx.cardview.widget.CardView
