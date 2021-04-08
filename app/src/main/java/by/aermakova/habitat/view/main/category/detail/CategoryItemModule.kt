@@ -10,8 +10,11 @@ import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.di.module.ViewModelKey
+import by.aermakova.habitat.model.useCase.ObserveHabitUseCase
 import by.aermakova.habitat.model.useCase.ObserveUseCase
+import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
+import by.aermakova.habitat.view.main.dashboard.HabitNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -33,12 +36,8 @@ class CategoryItemModule {
     }
 
     @Provides
-    fun provideHabitObserve(dataBase: AppDataBase): ObserveUseCase<Habit> =
-        object : ObserveUseCase<Habit>(HabitListAdapter()) {
-            override fun getList(): LiveData<List<Habit>> {
-                return dataBase.habitDao().getAllHabits()
-            }
-        }
+    fun provideHabitObserve(dataBase: AppDataBase): ObserveHabitUseCase =
+        ObserveHabitUseCase(HabitListAdapter(), dataBase)
 
     @Provides
     @IntoMap

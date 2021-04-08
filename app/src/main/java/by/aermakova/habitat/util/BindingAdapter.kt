@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.db.entity.Category
 import by.aermakova.habitat.model.db.entity.Habit
 import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.CategoryWrapper
@@ -231,11 +229,9 @@ fun setCategoryTitleColor(view: TextView, category: CategoryModel?) {
 fun setCategoryBackgroundColor(view: View, category: CategoryModel?) {
     category?.let {
         val color = CardColor.getColorById(it.color)
-        Log.d("A_BindingAdapter", "$it $color")
         view.setBackgroundColor(ContextCompat.getColor(view.context, color.cardColorId))
     }
 }
-
 
 @BindingAdapter(
     "app:bindCategoryWrapper"

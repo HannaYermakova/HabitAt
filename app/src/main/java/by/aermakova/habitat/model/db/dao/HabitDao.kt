@@ -1,6 +1,5 @@
 package by.aermakova.habitat.model.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import by.aermakova.habitat.model.db.entity.Habit
 
@@ -8,10 +7,10 @@ import by.aermakova.habitat.model.db.entity.Habit
 interface HabitDao {
 
     @Query("SELECT * FROM habit")
-    fun getAllHabits(): LiveData<List<Habit>>
+    suspend fun getAllHabits(): List<Habit>
 
     @Query("SELECT * FROM habit WHERE categoryId = :categoryId ")
-    fun getHabitsByCategoryId(categoryId: Long): LiveData<List<Habit?>?>?
+    suspend fun getHabitsByCategoryId(categoryId: Long): List<Habit>
 
     @Query("SELECT * FROM habit WHERE id = :id")
     fun getById(id: Long): Habit?
@@ -20,7 +19,7 @@ interface HabitDao {
     fun getByStartTime(startTime: Long): Habit?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-   suspend fun insert(habit: Habit)
+    suspend fun insert(habit: Habit)
 
     @Update
     fun update(habit: Habit?)

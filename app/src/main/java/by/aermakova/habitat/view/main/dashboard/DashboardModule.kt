@@ -13,12 +13,14 @@ import by.aermakova.habitat.model.db.pref.Preferences
 import by.aermakova.habitat.model.di.module.ViewModelKey
 import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.toModel
+import by.aermakova.habitat.model.useCase.ObserveHabitUseCase
 import by.aermakova.habitat.model.useCase.ObserveUseCase
 import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
 import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import kotlinx.coroutines.Job
 
 @Module
 class DashboardModule {
@@ -36,12 +38,8 @@ class DashboardModule {
         HabitNavigation(controller)
 
     @Provides
-    fun provideHabitObserve(router: HabitNavigation, dataBase: AppDataBase): ObserveUseCase<Habit> =
-        object : ObserveUseCase<Habit>(HabitDataMultiAdapter(router)) {
-            override fun getList(): LiveData<List<Habit>> {
-                return dataBase.habitDao().getAllHabits()
-            }
-        }
+    fun provideHabitObserve(router: HabitNavigation, dataBase: AppDataBase): ObserveHabitUseCase =
+        ObserveHabitUseCase(HabitDataMultiAdapter(router), dataBase)
 
     @Provides
     fun provideCategoryObserve(

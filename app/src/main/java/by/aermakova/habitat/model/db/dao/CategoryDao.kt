@@ -14,7 +14,7 @@ interface CategoryDao {
     suspend fun getAllCategorySuspend(): List<Category>
 
     @Query("SELECT * FROM category WHERE id = :id")
-    fun getById(id: Long): LiveData<Category>
+   suspend fun getById(id: Long): Category
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(category: Category?)

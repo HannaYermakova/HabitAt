@@ -9,4 +9,6 @@
     <dimen name="title_regular_size">18sp</dimen>
     <dimen name="edit_text_field_high">64dp</dimen>
     <dimen name="edit_text_text_high">16sp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
 </resources>
