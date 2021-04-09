@@ -4,6 +4,8 @@ import by.aermakova.habitat.view.app.AppActivity
 import by.aermakova.habitat.view.app.AppModule
 import by.aermakova.habitat.view.custom.dialog.TimePickerFragment
 import by.aermakova.habitat.view.custom.dialog.TimePickerModule
+import by.aermakova.habitat.view.main.calendar.CalendarFragment
+import by.aermakova.habitat.view.main.calendar.CalendarModule
 import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryFragment
 import by.aermakova.habitat.view.main.category.addNew.AddNewCategoryModule
 import by.aermakova.habitat.view.main.category.detail.CategoryItemFragment
@@ -31,6 +33,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [DashboardModule::class])
     abstract fun provideDashboardFragment(): DashboardFragment
+
+    @ContributesAndroidInjector(modules = [CalendarModule::class])
+    abstract fun provideCalendarFragment(): CalendarFragment
 
     @ContributesAndroidInjector(modules = [CategoryItemModule::class])
     abstract fun provideCategoryItemFragment(): CategoryItemFragment

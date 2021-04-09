@@ -1,16 +1,10 @@
 package by.aermakova.habitat.view.main.calendar
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import by.aermakova.habitat.view.base.BaseViewModel
+import javax.inject.Inject
 
-class CalendarViewModel : ViewModel() {
-    private val mText: MutableLiveData<String>
-    val text: LiveData<String>
-        get() = mText
+class CalendarViewModel @Inject constructor(
 
-    init {
-        mText = MutableLiveData()
-        mText.value = "This is home fragment"
-    }
+) : BaseViewModel() {
+
 }

@@ -20,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.model.*
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
+import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
-import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import com.warkiz.widget.IndicatorSeekBar
 import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
@@ -38,6 +38,16 @@ fun clickListener(view: View, listener: FunctionNoArgs?) {
     view.setOnClickListener {
         listener?.invoke()
     }
+}
+
+@BindingAdapter(
+    "app:text"
+)
+fun addText(
+    view: TextView,
+    textResource: Int?
+) {
+    view.text = textResource?.let { view.resources.getString(it) } ?: ""
 }
 
 @BindingAdapter("app:visibility")
