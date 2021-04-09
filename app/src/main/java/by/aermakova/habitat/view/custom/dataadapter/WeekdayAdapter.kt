@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.CustomToggleDayOfWeekDataBinding
-import by.aermakova.habitat.model.utilenums.WeekdayWrapper
+import by.aermakova.habitat.model.model.WeekdayWrapper
 
 class WeekdayAdapter :
     ListAdapter<WeekdayWrapper,

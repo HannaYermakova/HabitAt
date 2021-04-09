@@ -6,7 +6,7 @@
 
         <variable
             name="weekday"
-            type="by.aermakova.habitat.model.utilenums.WeekdayWrapper" />
+            type="by.aermakova.habitat.model.model.WeekdayWrapper" />
     </data>
 
     <ToggleButton

@@ -2,7 +2,7 @@ package by.aermakova.habitat.model.useCase
 
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.utilenums.Weekday
-import by.aermakova.habitat.model.utilenums.WeekdayWrapper
+import by.aermakova.habitat.model.model.WeekdayWrapper
 import by.aermakova.habitat.util.Constants.WEEK_SIZE
 import by.aermakova.habitat.view.custom.dataadapter.WeekdayAdapter
 import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy

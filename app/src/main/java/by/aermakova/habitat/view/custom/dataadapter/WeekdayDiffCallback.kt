@@ -1,7 +1,7 @@
 package by.aermakova.habitat.view.custom.dataadapter
 
 import androidx.recyclerview.widget.DiffUtil
-import by.aermakova.habitat.model.utilenums.WeekdayWrapper
+import by.aermakova.habitat.model.model.WeekdayWrapper
 
 object WeekdayDiffCallback: DiffUtil.ItemCallback<WeekdayWrapper>() {
 

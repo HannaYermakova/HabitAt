@@ -1,6 +1,5 @@
 package by.aermakova.habitat.model.utilenums
 
-import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.R
 
 enum class Weekday(val dayTitleId: Int, val number: Int) {
@@ -16,5 +15,3 @@ enum class Weekday(val dayTitleId: Int, val number: Int) {
         val week: Array<Weekday> = values()
     }
 }
-
-class WeekdayWrapper(val weekday: Weekday, val isSelected: MutableLiveData<Boolean>)
