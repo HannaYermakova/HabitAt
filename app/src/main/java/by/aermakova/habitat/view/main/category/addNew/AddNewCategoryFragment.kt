@@ -1,7 +1,6 @@
 package by.aermakova.habitat.view.main.category.addNew
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.FragmentAddNewCategoryBinding
 import by.aermakova.habitat.view.base.BaseFragment
@@ -15,9 +14,8 @@ class AddNewCategoryFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.back.setOnClickListener { backNavigation() }
-        subscribeToNavigationChanged()
         setColorsObserver()
+        setCategorySaverListener()
     }
 
     private fun setColorsObserver() {
@@ -27,10 +25,9 @@ class AddNewCategoryFragment :
         viewModel.loadColors()
     }
 
-    private fun subscribeToNavigationChanged() {
-        viewModel.saveCategoryCommand.observe(viewLifecycleOwner, Observer { backNavigation() })
-        viewModel.showErrorMessageCommand.observe(
-            viewLifecycleOwner,
-            Observer { message: Int? -> showSnackBarMessage(message!!) })
+    private fun setCategorySaverListener() {
+        observe(viewModel.saveNewCategoryUseCase.saveCategoryCommand){
+            viewModel.back.invoke()
+        }
     }
 }
