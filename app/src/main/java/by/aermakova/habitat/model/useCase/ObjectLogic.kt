@@ -5,12 +5,8 @@ open class ObjectLogic {
         val end = all % 10
         var c: String? = "$all "
         c += when (end) {
-            1 -> {
-                nominative
-            }
-            in 2..4 -> {
-                accusative
-            }
+            1 -> nominative
+            in 2..4 -> accusative
             else -> genitive
         }
         return c

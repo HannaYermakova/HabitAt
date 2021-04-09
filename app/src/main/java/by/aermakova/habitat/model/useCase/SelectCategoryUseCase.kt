@@ -1,11 +1,10 @@
 package by.aermakova.habitat.model.useCase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.model.CategoryWrapper
-import by.aermakova.habitat.view.custom.dataadapter.CategoryPillsAdapter
+import by.aermakova.habitat.view.custom.dataadapter.category.CategoryPillsAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

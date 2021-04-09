@@ -1,18 +1,21 @@
-package by.aermakova.habitat.view.custom.dataadapter
+package by.aermakova.habitat.view.custom.dataadapter.habit
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.view.custom.HabitCardAdditionalView
-import by.aermakova.habitat.view.custom.HabitCardView
+import by.aermakova.habitat.view.custom.square.HabitCardAdditionalView
+import by.aermakova.habitat.view.custom.square.HabitCardView
 import by.aermakova.habitat.view.navigation.MainFlowNavigation
 
-private const val ADDITIONAL_TYPE = 0
-private const val REGULAR_TYPE = 1
 
 class HabitDataMultiAdapter(private val routing: MainFlowNavigation) :
     ListAdapter<HabitModel, RecyclerView.ViewHolder>(HabitDiffCallback) {
+
+    companion object{
+        private const val ADDITIONAL_TYPE = 0
+        private const val REGULAR_TYPE = 1
+    }
 
     override fun getItemViewType(position: Int): Int {
         return if (itemCount == 1 || position == itemCount - 1) ADDITIONAL_TYPE else REGULAR_TYPE
@@ -35,7 +38,7 @@ class HabitDataMultiAdapter(private val routing: MainFlowNavigation) :
                 (holder as HabitViewAdditionHolder).view.setTextVisible(itemCount <= 1)
                 holder.view.setOnClickListener { routing.navigateToAddNewElementFragment() }
             }
-            else -> {
+            REGULAR_TYPE -> {
                 (holder as HabitViewHolder).view.setHabitItem(getItem(position))
                 holder.view.setOnClickListener {
                     routing.navigateToShowDetailsFragment(getItem(position).id)

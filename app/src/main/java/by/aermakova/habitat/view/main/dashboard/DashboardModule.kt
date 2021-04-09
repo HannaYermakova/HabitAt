@@ -13,8 +13,8 @@ import by.aermakova.habitat.model.model.CategoryModel
 import by.aermakova.habitat.model.model.toModel
 import by.aermakova.habitat.model.useCase.ObserveHabitUseCase
 import by.aermakova.habitat.model.useCase.ObserveUseCase
-import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter
-import by.aermakova.habitat.view.custom.dataadapter.HabitDataMultiAdapter
+import by.aermakova.habitat.view.custom.dataadapter.category.CategoryAdapter
+import by.aermakova.habitat.view.custom.dataadapter.habit.HabitDataMultiAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

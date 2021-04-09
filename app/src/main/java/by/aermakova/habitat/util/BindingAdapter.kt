@@ -23,7 +23,7 @@ import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
-import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
+import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import com.warkiz.widget.IndicatorSeekBar
 import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams

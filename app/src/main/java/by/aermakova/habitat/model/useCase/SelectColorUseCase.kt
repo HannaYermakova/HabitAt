@@ -1,11 +1,10 @@
 package by.aermakova.habitat.model.useCase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.model.CardColorWrapper
 import by.aermakova.habitat.model.utilenums.CardColor
-import by.aermakova.habitat.view.custom.dataadapter.CardColorAdapter
+import by.aermakova.habitat.view.custom.dataadapter.color.CardColorAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +41,6 @@ class SelectColorUseCase {
         this._selectedColor = colorWrapper
         _allColors.value?.let {
             it.map { wrapper ->
-                Log.d("A_SelectColorUseCase", "${wrapper.cardColor == colorWrapper.cardColor}")
                 wrapper.isSelected.value = wrapper.cardColor.id == colorWrapper.cardColor.id
             }
         }

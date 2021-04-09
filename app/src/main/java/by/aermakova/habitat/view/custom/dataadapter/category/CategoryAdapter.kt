@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom.dataadapter
+package by.aermakova.habitat.view.custom.dataadapter.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.CustomCategoryCardBinding
 import by.aermakova.habitat.model.model.CategoryModel
-import by.aermakova.habitat.view.custom.dataadapter.CategoryAdapter.CategoryViewHolder
+import by.aermakova.habitat.view.custom.dataadapter.category.CategoryAdapter.CategoryViewHolder
 import by.aermakova.habitat.view.navigation.MainFlowNavigation
 
 class CategoryAdapter(private val routing: MainFlowNavigation) :

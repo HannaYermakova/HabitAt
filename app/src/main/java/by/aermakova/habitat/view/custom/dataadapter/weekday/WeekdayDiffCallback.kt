@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom.dataadapter
+package by.aermakova.habitat.view.custom.dataadapter.weekday
 
 import androidx.recyclerview.widget.DiffUtil
 import by.aermakova.habitat.model.model.WeekdayWrapper

@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom.weekdaysStrategy
+package by.aermakova.habitat.model.useCase.weekdaysStrategy
 
 import by.aermakova.habitat.R
 

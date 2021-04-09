@@ -9,7 +9,7 @@ import by.aermakova.habitat.R
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.di.module.ViewModelKey
 import by.aermakova.habitat.model.useCase.ObserveHabitUseCase
-import by.aermakova.habitat.view.custom.dataadapter.HabitListAdapter
+import by.aermakova.habitat.view.custom.dataadapter.habit.HabitListAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

@@ -11,7 +11,7 @@ import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.util.Constants.HABIT_DURATION_INITIAL
 import by.aermakova.habitat.view.base.BaseViewModel
 import by.aermakova.habitat.view.custom.dialog.TimePickerNavigation
-import by.aermakova.habitat.view.custom.weekdaysStrategy.WeekdaysStrategy
+import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import javax.inject.Inject
 
 

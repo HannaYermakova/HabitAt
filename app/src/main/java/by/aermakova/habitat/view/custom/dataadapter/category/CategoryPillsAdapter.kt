@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom.dataadapter
+package by.aermakova.habitat.view.custom.dataadapter.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

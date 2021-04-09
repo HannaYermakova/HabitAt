@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom
+package by.aermakova.habitat.view.custom.square
 
 import android.R
 import android.content.Context

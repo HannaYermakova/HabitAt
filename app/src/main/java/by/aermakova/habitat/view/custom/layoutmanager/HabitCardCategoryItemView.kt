@@ -1,4 +1,4 @@
-package by.aermakova.habitat.view.custom
+package by.aermakova.habitat.view.custom.layoutmanager
 
 import android.content.Context
 import android.view.LayoutInflater

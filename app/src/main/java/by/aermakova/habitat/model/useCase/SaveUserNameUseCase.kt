@@ -7,6 +7,7 @@ import by.aermakova.habitat.util.FunctionNoArgs
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
+
 class SaveUserNameUseCase(
     private val preferencesManager: PreferencesManager
 ) {

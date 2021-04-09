@@ -1,10 +1,10 @@
-package by.aermakova.habitat.view.custom.dataadapter
+package by.aermakova.habitat.view.custom.dataadapter.habit
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.view.custom.HabitCardCategoryItemView
+import by.aermakova.habitat.view.custom.layoutmanager.HabitCardCategoryItemView
 
 
 class HabitListAdapter : ListAdapter<HabitModel, HabitListAdapter.HabitViewHolder>(HabitDiffCallback) {

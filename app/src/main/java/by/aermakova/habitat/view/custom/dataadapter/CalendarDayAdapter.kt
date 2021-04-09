@@ -1,6 +1,5 @@
 package by.aermakova.habitat.view.custom.dataadapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.useCase.CalendarDay
@@ -31,7 +30,6 @@ class CalendarDayAdapter : RecyclerView.Adapter<CalendarDayAdapter.CalendarDayHo
          Array(7) { i ->
             CalendarDay(weekDays[i], hasHabits = true, isToday = true, dayNumber = 15)
         }
-        Log.d("A_CalendarDayAdapter","${calendarDays.size}")
         return calendarDays
 }
 }
