@@ -49,4 +49,12 @@
     <string name="accusative_habits">привычки</string>
     <string name="notification_text">скоро войдёт в привычку!</string>
     <string name="notification_channel">Напоминание о привычке</string>
+
+    <string name="week_day_monday">Пн</string>
+    <string name="week_day_tuesday">Вт</string>
+    <string name="week_day_wednesday">Ср</string>
+    <string name="week_day_thursday">Чт</string>
+    <string name="week_day_friday">Пт</string>
+    <string name="week_day_saturday">Сб</string>
+    <string name="week_day_sunday">Вс</string>
 </resources>

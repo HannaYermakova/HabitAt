@@ -15,11 +15,9 @@
         android:layout_height="50dp"
         android:background="@drawable/ic_toggle"
         android:fontFamily="@font/proxima_nova_font"
-        android:text="@{weekday.weekday.day}"
+        app:setToggleText="@{weekday.weekday.dayTitleId}"
         android:textAllCaps="false"
         android:textColor="@color/colorPink"
-        android:textOff="@{weekday.weekday.day}"
-        android:textOn="@{weekday.weekday.day}"
         android:textSize="16sp"
         app:toggleIsChecked="@{weekday.isSelected}" />
 </layout>

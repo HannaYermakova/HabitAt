@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">HABITat</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_statistic">Statistic</string>
+    <string name="title_profile">Profile</string>
+    <string name="onboarding_title_1">Get better</string>
+    <string name="onboading_title_2">Get better</string>
+    <string name="onboading_title_3">Get better</string>
+    <string name="introduce">Welcome \n to HABITat!</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_habit_title">Enter the title</string>
+    <string name="motivation_text_1">Form all kinds of persistent habits and \nfeel motivation by following the habits \nevery day</string>
+    <string name="continue_txt">Next</string>
+    <string name="cancel_txt">Skip</string>
+    <string name="start_txt">Start</string>
+    <string name="create_txt">Create</string>
+    <string name="hello_user">"Hello, "%1$s"!"</string>
+    <string name="percent_sign">""%1$s"%%"</string>
+    <string name="habit_day">""%1$s" days"</string>
+    <string name="category">Category</string>
+    <string name="categories">Categories</string>
+    <string name="add_your_first_habit">Add your\nfirst habit</string>
+    <string name="new_category">New category</string>
+    <string name="new_category_color">Color</string>
+    <string name="new_habit">Hew habit</string>
+    <string name="new_habit_title">Title</string>
+    <string name="new_habit_duration">Durations (days)</string>
+    <string name="new_habit_timetable">Scheduler</string>
+    <string name="new_habit_remind">Remind my</string>
+    <string name="new_habit_remind_time">10:00</string>
+    <string name="empty" />
+    <string name="space">\u0020\u0020</string>
+    <string name="tag_category">"#"%1$s""</string>
+    <string name="error_empty_name">Для продолжения введите имя или ник</string>
+    <string name="error_empty_fields">Full fields</string>
+    <string name="error_db">There have been an error while saving</string>
+    <string name="change_time">Change time</string>
+    <string name="spinner_every_day">Every day</string>
+    <string name="spinner_select_manually">Choose manually</string>
+    <string name="create_first_category">add category</string>
+
+    <string name="nominative_days">day</string>
+    <string name="genitive_days">days</string>
+    <string name="accusative_days">days</string>
+
+    <string name="nominative_habits">habit</string>
+    <string name="genitive_habits">habits</string>
+    <string name="accusative_habits">habits</string>
+    <string name="notification_text">will become your habit soon</string>
+    <string name="notification_channel">Habit reminder</string>
+
+    <string name="week_day_monday">Mo</string>
+    <string name="week_day_tuesday">Tu</string>
+    <string name="week_day_wednesday">We</string>
+    <string name="week_day_thursday">Th</string>
+    <string name="week_day_friday">Fr</string>
+    <string name="week_day_saturday">Sa</string>
+    <string name="week_day_sunday">Su</string>
+</resources>

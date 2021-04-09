@@ -11,7 +11,6 @@ class CalendarDayAdapter : RecyclerView.Adapter<CalendarDayAdapter.CalendarDayHo
     private val calendarDays: Array<CalendarDay> = generateWeek()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarDayHolder {
-        Log.d("A_CalendarDayAdapter","${calendarDays[0].weekDay.day}")
         return CalendarDayHolder(CalendarDayView(parent.context))
     }
 
@@ -20,8 +19,6 @@ class CalendarDayAdapter : RecyclerView.Adapter<CalendarDayAdapter.CalendarDayHo
     }
 
     override fun onBindViewHolder(holder: CalendarDayHolder, position: Int) {
-        Log.d("A_CalendarDayAdapter","${calendarDays[0].weekDay.day}")
-
         val view = holder.view
         view.setCalendarDay(calendarDays[position])
     }

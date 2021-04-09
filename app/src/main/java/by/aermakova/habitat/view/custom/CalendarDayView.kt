@@ -17,7 +17,7 @@ class CalendarDayView(context: Context) : LinearLayout(context) {
 
     fun setCalendarDay(calendarDay: CalendarDay) {
         with(mBinding) {
-            weekDayTitle.text = calendarDay.weekDay.day
+            weekDayTitle.text = context.getString(calendarDay.weekDay.dayTitleId)
             today.visibility = if (calendarDay.isToday) View.VISIBLE else View.INVISIBLE
             habits.visibility = if (calendarDay.hasHabits) View.VISIBLE else View.INVISIBLE
             dayNumber.text = calendarDay.dayNumber.toString()

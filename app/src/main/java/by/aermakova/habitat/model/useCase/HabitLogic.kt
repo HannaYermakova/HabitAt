@@ -65,7 +65,8 @@ class HabitLogic(private val habit: HabitModel?, private val context: Context?) 
             for (i in 0..6) {
                 if (weekDays[i]) {
                     week++
-                    stringBuilder.append(weekDaysList[i].day).append(", ")
+                    val day = context?.getString(weekDaysList[i].dayTitleId)
+                    stringBuilder.append(day).append(", ")
                 }
             }
             return if (stringBuilder.isNotEmpty()) {

@@ -70,6 +70,23 @@ fun setSelectedTime(
     textView.text = selectedTime?.toStringRepresentation() ?: "10:00"
 }
 
+@BindingAdapter(
+    "app:setToggleText"
+)
+fun setToggleText(
+    toggleButton: ToggleButton,
+    textResource: Int?
+) {
+    textResource?.let {
+        val title = toggleButton.resources.getString(it)
+        toggleButton.apply {
+            text = title
+            textOff = title
+            textOn = title
+        }
+    }
+}
+
 @BindingAdapter("app:addWeekdayStrategy")
 fun addWeekdayStrategy(
     spinner: Spinner,

@@ -1,15 +1,16 @@
 package by.aermakova.habitat.model.utilenums
 
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.habitat.R
 
-enum class Weekday(val day: String, val number: Int) {
-    MONDAY("Пн", 0),
-    TUESDAY("Вт", 1),
-    WEDNESDAY("Ср", 2),
-    THURSDAY("Чт", 3),
-    FRIDAY("Пт", 4),
-    SATURDAY("Сб", 5),
-    SUNDAY("Вс", 6);
+enum class Weekday(val dayTitleId: Int, val number: Int) {
+    MONDAY(R.string.week_day_monday, 0),
+    TUESDAY(R.string.week_day_tuesday, 1),
+    WEDNESDAY(R.string.week_day_wednesday, 2),
+    THURSDAY(R.string.week_day_thursday, 3),
+    FRIDAY(R.string.week_day_friday, 4),
+    SATURDAY(R.string.week_day_saturday, 5),
+    SUNDAY(R.string.week_day_sunday, 6);
 
     companion object {
         val week: Array<Weekday> = values()
