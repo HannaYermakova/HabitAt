@@ -22,6 +22,7 @@
         android:textOff="@{category.category.title}"
         android:textOn="@{category.category.title}"
         android:textSize="16sp"
-        app:bindCategoryWrapper="@{category}"
-        app:isCategoryChecked="@{category.isSelected}" />
+        app:bindCategoryWrapper="@{category.category.color}"
+        app:isCategoryChecked="@{category.isSelected}"
+        app:isRectangle="@{true}" />
 </layout>

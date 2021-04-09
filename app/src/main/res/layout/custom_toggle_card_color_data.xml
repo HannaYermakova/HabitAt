@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="cardColor"
+            type="by.aermakova.habitat.model.model.CardColorWrapper" />
+    </data>
+
+    <ToggleButton
+        android:id="@+id/color_toggle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_toggle_pill"
+        android:textColor="@color/color_category_card_text_4"
+        android:textOff="@string/empty"
+        android:textOn="@string/empty"
+        app:bindCategoryWrapper="@{cardColor.cardColor.id}"
+        app:isCategoryChecked="@{cardColor.isSelected}"
+        app:isRectangle="@{false}" />
+</layout>

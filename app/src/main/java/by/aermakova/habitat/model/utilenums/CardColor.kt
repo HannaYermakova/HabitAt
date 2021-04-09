@@ -12,6 +12,7 @@ enum class CardColor(val id: Int, val cardColorId: Int, val textColorId: Int) {
     PURPLE(7, R.color.color_category_card_6, R.color.color_category_card_text_6);
 
     companion object {
+        private val cardColors: Array<CardColor> = values()
         fun getColorById(id: Int): CardColor {
             return if (id < 1 || id > 7) {
                 throw IllegalArgumentException("Color ID must be in the range of 1 to 7")
@@ -19,7 +20,5 @@ enum class CardColor(val id: Int, val cardColorId: Int, val textColorId: Int) {
                 cardColors[id - 1]
             }
         }
-
-        val cardColors: Array<CardColor> = values()
     }
 }

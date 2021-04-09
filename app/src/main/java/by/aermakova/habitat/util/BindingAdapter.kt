@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -17,10 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.model.CategoryModel
-import by.aermakova.habitat.model.model.CategoryWrapper
-import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.model.model.TimeModel
+import by.aermakova.habitat.model.model.*
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
@@ -174,7 +172,8 @@ fun bindWeekdaysSelector(
 ) {
     selectWeekdays?.let {
         with(recyclerView) {
-            layoutManager = SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                SpanningLinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = it.weekdayAdapter
             it.setInitialWeek()
         }
@@ -214,6 +213,25 @@ fun bindCategorySelector(
 }
 
 @BindingAdapter(
+    "app:bindColorsSelector"
+)
+fun bindColorsSelector(
+    recyclerView: RecyclerView,
+    colorAdapter: ListAdapter<CardColorWrapper, out RecyclerView.ViewHolder>?
+) {
+    colorAdapter?.let {
+        with(recyclerView) {
+            layoutManager = SpanningLinearLayoutManager(
+                recyclerView.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = colorAdapter
+        }
+    }
+}
+
+@BindingAdapter(
     "app:categoryTitleColor"
 )
 fun setCategoryTitleColor(view: TextView, category: CategoryModel?) {
@@ -234,16 +252,18 @@ fun setCategoryBackgroundColor(view: View, category: CategoryModel?) {
 }
 
 @BindingAdapter(
-    "app:bindCategoryWrapper"
+    "app:bindCategoryWrapper",
+    "app:isRectangle"
 )
 fun bindCategoryWrapper(
     categoryToggle: ToggleButton,
-    categoryWrapper: CategoryWrapper?
+    categoryColorId: Int?,
+    isRectangle: Boolean?
 ) {
-    categoryWrapper?.let {
+    categoryColorId?.let {
         val context = categoryToggle.context
-        val color: CardColor = CardColor.getColorById(it.category.color)
-        categoryToggle.background = generateSelector(color, context)
+        val color = CardColor.getColorById(it)
+        categoryToggle.background = generateSelector(color, context, isRectangle)
         categoryToggle.setTextColor(ContextCompat.getColor(context, color.textColorId))
     }
 }
@@ -257,29 +277,32 @@ fun bindCategoryCheckedListener(
 ) {
     isChecked?.let {
         categoryToggle.isChecked = it
+        Log.d("A_BindingAdapter", "${categoryToggle.isChecked}")
     }
 }
 
-private fun generateSelector(color: CardColor, context: Context): Drawable {
+private fun generateSelector(color: CardColor, context: Context, isRectangle: Boolean?): Drawable {
     val drawable = StateListDrawable()
     drawable.addState(
         intArrayOf(android.R.attr.state_checked),
-        generatePillDrawable(color.cardColorId, color.textColorId, context)
+        generateDrawable(color.cardColorId, color.textColorId, context, isRectangle)
     )
     drawable.addState(
         intArrayOf(android.R.attr.state_enabled),
-        generatePillDrawable(color.cardColorId, 0, context)
+        generateDrawable(color.cardColorId, 0, context, isRectangle)
     )
     return drawable
 }
 
-private fun generatePillDrawable(
+private fun generateDrawable(
     backgroundColor: Int,
     borderColor: Int,
-    context: Context
+    context: Context,
+    isRectangle: Boolean?
 ): Drawable {
     val shape = GradientDrawable()
-    shape.shape = GradientDrawable.RECTANGLE
+    shape.shape = isRectangle?.let { if (it) GradientDrawable.RECTANGLE else GradientDrawable.OVAL }
+        ?: GradientDrawable.RECTANGLE
     shape.cornerRadius = UiUtils.CORNER_RADIUS.toFloat()
     shape.setColor(ContextCompat.getColor(context, backgroundColor))
     if (borderColor > 0) shape.setStroke(
