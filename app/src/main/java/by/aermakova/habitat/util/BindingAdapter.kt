@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.model.*
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
+import by.aermakova.habitat.model.useCase.calendar.ShowWeekCalendarUseCase
 import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import by.aermakova.habitat.model.utilenums.CardColor
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
@@ -50,12 +51,31 @@ fun addText(
     view.text = textResource?.let { view.resources.getString(it) } ?: ""
 }
 
+@BindingAdapter(
+    "app:dayNumber"
+)
+fun addDayNumber(
+    view: TextView,
+    dayNumber: Int?
+) {
+    view.text = dayNumber?.toString() ?: ""
+}
+
 @BindingAdapter("app:visibility")
 fun setVisibility(
     view: View,
     isVisible: Boolean?
 ) {
     view.visibility = isVisible?.let { if (isVisible) View.VISIBLE else View.GONE } ?: View.GONE
+}
+
+@BindingAdapter("app:invisibility")
+fun setInvisibility(
+    view: View,
+    isVisible: Boolean?
+) {
+    view.visibility =
+        isVisible?.let { if (isVisible) View.VISIBLE else View.INVISIBLE } ?: View.INVISIBLE
 }
 
 @BindingAdapter("app:onStopTracking")
@@ -254,6 +274,29 @@ fun bindColorsSelector(
                 false
             )
             adapter = colorAdapter
+        }
+    }
+}
+
+@BindingAdapter(
+    "app:bindCalendarAdapter"
+)
+fun bindColorsSelector(
+    recyclerView: RecyclerView,
+    showWeekCalendarUseCase: ShowWeekCalendarUseCase?
+) {
+    showWeekCalendarUseCase?.let {
+        with(recyclerView) {
+            layoutManager = SpanningLinearLayoutManager(
+                recyclerView.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = it.adapter.apply {
+                val list = showWeekCalendarUseCase.generateWeek()
+                Log.d("A_BindingAdapter", "$list")
+                submitList(list)
+            }
         }
     }
 }

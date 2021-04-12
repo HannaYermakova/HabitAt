@@ -11,12 +11,10 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="124dp"
         android:background="@color/color_white"
-        android:gravity="center"
-        android:orientation="vertical"
         android:padding="3dp">
 
         <TextView
@@ -26,32 +24,38 @@
             android:fontFamily="@font/proxima_nova"
             android:textColor="@color/colorUsual"
             android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/today"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:text="@{day.weekday.dayTitleId}"
             tools:text="Пн" />
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/today"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            app:invisibility="@{day.isToday}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-            <ImageView
-                android:id="@+id/today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/circle"
-                android:visibility="invisible"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/day_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/proxima_nova"
-                android:textColor="@color/color_blue"
-                android:textSize="16sp"
-                tools:text="23" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/day_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_nova"
+            android:textColor="@color/color_blue"
+            android:textSize="16sp"
+            app:dayNumber="@{day.number}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="23" />
 
         <ImageView
             android:id="@+id/habits"
@@ -59,7 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:src="@drawable/dots"
-            app:visibility="@{day.hasInfo}"
+            app:invisibility="@{day.hasInfo}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today"
             tools:visibility="visible" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

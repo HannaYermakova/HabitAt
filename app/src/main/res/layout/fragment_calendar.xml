@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="by.aermakova.habitat.view.main.calendar.CalendarViewModel" />
@@ -35,6 +36,7 @@
             app:layout_constraintVertical_bias="0.02">
 
             <Button
+                android:visibility="invisible"
                 android:id="@+id/back"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
@@ -54,24 +56,24 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <!--        <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="10dp"
-                    android:id="@+id/calendar_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_margin="20dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rel"/>-->
-
-        <by.aermakova.habitat.view.custom.CustomCalendarCardView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_card"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rel" />
+            app:layout_constraintTop_toBottomOf="@+id/rel">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendar_recycler"
+                app:bindCalendarAdapter="@{viewModel.showWeekCalendarUseCase}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp" />
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
