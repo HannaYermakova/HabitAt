@@ -16,7 +16,6 @@ object CalendarConverter {
         return Array(WEEK_SIZE) { i -> Day(weekDays[i], daysNumber[i], i == today) }
     }
 
-
      @SuppressLint("SimpleDateFormat")
      private fun getDaysNumbers() : Array<Int> {
         val array = Array(WEEK_SIZE){0}

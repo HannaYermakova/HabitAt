@@ -23,6 +23,7 @@ import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
 import by.aermakova.habitat.model.useCase.calendar.ShowWeekCalendarUseCase
 import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import by.aermakova.habitat.model.utilenums.CardColor
+import by.aermakova.habitat.view.custom.dataadapter.calendar.CalendarDayAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
 import com.warkiz.widget.IndicatorSeekBar
@@ -292,12 +293,20 @@ fun bindColorsSelector(
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = it.adapter.apply {
-                val list = showWeekCalendarUseCase.generateWeek()
-                Log.d("A_BindingAdapter", "$list")
-                submitList(list)
-            }
+            adapter = it.adapter
         }
+    }
+}
+
+@BindingAdapter(
+    "app:addWeek"
+)
+fun addWeek(
+    recyclerView: RecyclerView,
+    list: Array<CalendarDay>?
+) {
+    list?.let {
+        (recyclerView.adapter as CalendarDayAdapter).submitList(it.toList())
     }
 }
 

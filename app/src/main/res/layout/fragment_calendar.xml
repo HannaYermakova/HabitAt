@@ -36,14 +36,14 @@
             app:layout_constraintVertical_bias="0.02">
 
             <Button
-                android:visibility="invisible"
                 android:id="@+id/back"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:drawableStart="@drawable/ic_back_arrow"
-                android:drawableTint="@color/color_pink" />
+                android:drawableTint="@color/color_pink"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/category_title"
@@ -68,11 +68,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/calendar_recycler"
-                app:bindCalendarAdapter="@{viewModel.showWeekCalendarUseCase}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp" />
+                app:addWeek="@{viewModel.calendar}"
+                app:bindCalendarAdapter="@{viewModel.showWeekCalendarUseCase}" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
