@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import by.aermakova.habitat.R
 import by.aermakova.habitat.databinding.HabitCustomCardBinding
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 import by.aermakova.habitat.model.useCase.HabitLogic
 
 class HabitCardView(context: Context) : CardView(context) {

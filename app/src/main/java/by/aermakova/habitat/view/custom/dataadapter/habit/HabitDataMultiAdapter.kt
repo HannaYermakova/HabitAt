@@ -3,7 +3,7 @@ package by.aermakova.habitat.view.custom.dataadapter.habit
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 import by.aermakova.habitat.view.custom.square.HabitCardAdditionalView
 import by.aermakova.habitat.view.custom.square.HabitCardView
 import by.aermakova.habitat.view.navigation.MainFlowNavigation

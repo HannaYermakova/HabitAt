@@ -1,6 +1,7 @@
 package by.aermakova.habitat.util
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -19,10 +20,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.R
 import by.aermakova.habitat.model.model.*
+import by.aermakova.habitat.model.model.habit.HabitModel
 import by.aermakova.habitat.model.useCase.SelectWeekdaysUseCase
+import by.aermakova.habitat.model.useCase.calendar.ShowHabitsWeekUseCase
 import by.aermakova.habitat.model.useCase.calendar.ShowWeekCalendarUseCase
 import by.aermakova.habitat.model.useCase.weekdaysStrategy.WeekdaysStrategy
 import by.aermakova.habitat.model.utilenums.CardColor
+import by.aermakova.habitat.model.utilenums.HabitDayState
 import by.aermakova.habitat.view.custom.dataadapter.calendar.CalendarDayAdapter
 import by.aermakova.habitat.view.custom.layoutmanager.ItemOffsetDecoration
 import by.aermakova.habitat.view.custom.layoutmanager.SpanningLinearLayoutManager
@@ -158,6 +162,32 @@ fun setToggleButtonListener(
     }
 }
 
+@BindingAdapter("app:habitState")
+fun setHabitState(
+    toggleButton: ToggleButton,
+    habitState: HabitDayState?
+) {
+    val resources = toggleButton.resources
+    toggleButton.background = generateDrawable(
+        resources,
+        when (habitState) {
+            null -> R.drawable.circle_grey
+            HabitDayState.NOT_RELEVANT -> R.drawable.circle_grey
+            HabitDayState.RELEVANT -> R.drawable.circle
+            HabitDayState.MISSED -> R.drawable.habit_missed
+        }
+    )
+}
+
+private fun generateDrawable(resources: Resources, resId: Int): Drawable? {
+    return try {
+        Drawable.createFromXml(resources, resources.getXml(resId))
+    } catch (ex: Exception) {
+        Log.e("Error", "Exception loading drawable")
+        null
+    }
+}
+
 @BindingAdapter("app:tempTitle")
 fun editTitleListener(
     editText: EditText,
@@ -240,6 +270,20 @@ fun bindCategoryListToRecycler(
             layoutManager =
                 LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             adapter = categoryAdapter
+        }
+    }
+}
+
+@BindingAdapter("app:bindHabitWeeksAdapter")
+fun bindHabitWeeksAdapter(
+    recyclerView: RecyclerView,
+    showHabitsWeekUseCase: ShowHabitsWeekUseCase?
+) {
+    showHabitsWeekUseCase?.let {
+        with(recyclerView) {
+            layoutManager =
+                LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+            adapter = it.adapter
         }
     }
 }

@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 import java.util.*
 
 class HabitAlarmUseCase(private val context: Context) {

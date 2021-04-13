@@ -1,4 +1,4 @@
-package by.aermakova.habitat.model.model
+package by.aermakova.habitat.model.model.habit
 
 import by.aermakova.habitat.model.db.entity.Habit
 

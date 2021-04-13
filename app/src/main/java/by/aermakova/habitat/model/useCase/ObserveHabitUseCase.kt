@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.model.model.toModel
+import by.aermakova.habitat.model.model.habit.HabitModel
+import by.aermakova.habitat.model.model.habit.toModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -63,4 +63,10 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">@dimen/title_regular_size</item>
     </style>
+
+    <style name="SecondaryTitleTheme">
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
+        <item name="android:textColor">@color/colorUsual</item>
+        <item name="android:textSize">@dimen/title_secondary_size</item>
+    </style>
 </resources>

@@ -1,7 +1,7 @@
 package by.aermakova.habitat.view.custom.dataadapter.habit
 
 import androidx.recyclerview.widget.DiffUtil
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 
 object HabitDiffCallback: DiffUtil.ItemCallback<HabitModel>() {
 

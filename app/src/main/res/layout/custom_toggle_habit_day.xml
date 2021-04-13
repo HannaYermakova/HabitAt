@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="habit"
+            type="by.aermakova.habitat.model.model.habit.HabitDayWrapper" />
+    </data>
+
+    <ToggleButton
+        android:id="@+id/toggle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_habit_calendar"
+        android:fontFamily="@font/proxima_nova_font"
+        android:textOff="@string/empty"
+        android:textOn="@string/empty"
+        app:habitState="@{habit.state}"
+        app:toggleIsChecked="@{habit.isChecked}" />
+</layout>

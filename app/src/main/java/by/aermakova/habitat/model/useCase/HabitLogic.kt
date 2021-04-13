@@ -2,7 +2,7 @@ package by.aermakova.habitat.model.useCase
 
 import android.content.Context
 import by.aermakova.habitat.R
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 import by.aermakova.habitat.model.utilenums.Weekday
 import java.util.*
 

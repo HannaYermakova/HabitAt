@@ -3,7 +3,7 @@ package by.aermakova.habitat.view.main.habit
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import by.aermakova.habitat.model.model.HabitModel
+import by.aermakova.habitat.model.model.habit.HabitModel
 import by.aermakova.habitat.model.useCase.HabitAlarmUseCase
 import by.aermakova.habitat.model.useCase.SaveNewHabitUseCase
 import by.aermakova.habitat.model.useCase.SelectCategoryUseCase

@@ -1,8 +1,8 @@
 package by.aermakova.habitat.model.useCase
 
 import by.aermakova.habitat.model.db.AppDataBase
-import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.model.model.toEntity
+import by.aermakova.habitat.model.model.habit.HabitModel
+import by.aermakova.habitat.model.model.habit.toEntity
 import by.aermakova.habitat.util.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

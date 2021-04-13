@@ -2,6 +2,7 @@ package by.aermakova.habitat.view.main.calendar
 
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.di.module.ViewModelKey
+import by.aermakova.habitat.model.useCase.calendar.ShowHabitsWeekUseCase
 import by.aermakova.habitat.model.useCase.calendar.ShowWeekCalendarUseCase
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,10 @@ class CalendarModule {
     @Provides
     fun provideShowWeekCalendarUseCase(dataBase: AppDataBase) =
         ShowWeekCalendarUseCase(dataBase)
+
+    @Provides
+    fun provideShowHabitsWeekUseCase(dataBase: AppDataBase) =
+        ShowHabitsWeekUseCase(dataBase)
 
     @Provides
     @IntoMap

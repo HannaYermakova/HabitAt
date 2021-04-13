@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.habitat.model.db.AppDataBase
 import by.aermakova.habitat.model.model.CalendarDay
-import by.aermakova.habitat.model.model.HabitModel
-import by.aermakova.habitat.model.model.toModel
+import by.aermakova.habitat.model.model.habit.HabitModel
+import by.aermakova.habitat.model.model.habit.toModel
 import by.aermakova.habitat.util.Constants.WEEK_SIZE
 import by.aermakova.habitat.view.custom.dataadapter.calendar.CalendarDayAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
 
 class ShowWeekCalendarUseCase(
     val dataBase: AppDataBase
